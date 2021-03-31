@@ -1,102 +1,107 @@
-func:
+## 2. 硬件平台2 - k210
 
-set_gcc()
+- k210 SDK |  Version: v0.5.6
 
-修改 `rtconfig.py`，设定交叉编译工具链的路径
+- 模型支持：TFLite、Caffe、ONNX
 
-输入为 (rtconfig_path, gcc_path)
+- 交叉编译工具链，下载地址： [xPack GNU RISC-V Embedded GCC](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/) | Version: v8.3.0-1.2
 
-输出 None
+- K-Flash 烧录工具，下载地址：[windows上的kflash图形界面烧录软件](https://github.com/kendryte/kendryte-flash-windows/releases)
 
+  > PS: [linux下python脚本烧录](https://github.com/kendryte/kflash.py)
 
+### Part3：k210 参数
 
-func：
+| Parameter           | Description                                                  |
+| ------------------- | ------------------------------------------------------------ |
+| --embed_gcc         | 交叉编译工具链路径，**需要用户指定**                         |
+| **--ext_tools**     | `NNCase` 路径，将模型转换为 `kmodel`，默认是 `./platforms/k210/k_tools` |
+| **--dataset**       | 模型量化过程中所需要用到的数据集，**需要用户指定**           |
+| --convert_report    | 模型转换成 `kmodel` 的日志输出，默认是 `./platforms/k210/convert_report.txt` |
+| --model_types       | `RT-AK Tools` 所支持的模型类型，目前仅支持：tflite、onnx、caffe |
+| --**network**       | 在 `Documents` 中的模板文件的模型名，默认是 `facelandmark`   |
+| **--enable_rt_lib** | 在 `project/rtconfgi.h` 中打开宏定义 `RT_AI_USE_K210`，默认是 `RT_AI_USE_K210` |
+| **--flag**          | 是否需要删除 `convert_report.txt` ，默认 `False`             |
 
-is_support_model_type()
+## 
 
-验证模型类型是否在支持列表中 (tflite|caffe|onnx)
+### Part2：k210
 
-输入 (model_types, model)
+目前耗时在 220s 左右，时间占用最长在 nncase 转换模型的过程中，耗时 200s 上下。
 
-输出 模型文件名
+1. 基础运行命令：
 
+```shell
+python aitools.py --project=<your_project_path> --model_path=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset>
 
+# 示例
+python aitools.py --project="D:\Project\k210_val" --model_path="./Model/facelandmark.tflite" --platform=k210 --embed_gcc="D:\Project\k210_third_tools\xpack-riscv-none-embed-gcc-8.3.0-1.2\bin" --dataset="./platforms/k210/datasets/images"
+```
 
-func:
+![](https://gitee.com/lebhoryi/PicGoPictureBed/raw/master/img/20210223151447.png)
 
-run_k210()
+2. 其他：
 
-运行k210
+```shell
+# 指定转换的模型名称，--model_name 默认为 network
+python aitools.py --project=<your_project_path> --model_path=<your_model_path> --model_name=<model_name> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --flag
 
-- sub_func
+# 不保存模型转换日志，--flag
+python aitools.py --project=<your_project_path> --model_path=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --flag
 
-    convert_kmodel()
+# 指定 kmodel 名称，--kmodel_name
+python aitools.py --project=<your_project_path> --model_path=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --kmodel_name=<new_model_name>
+```
 
-    设置ncc 的系统环境变量，用 nncase 把 `tflite` 转成 kmodel, cmd 运行结果保存为一个txt，然后模型另保存为16进制文件
+# 
 
-    **量化需要数据集**
+## 3. k210
 
-    input: (model, project, ncc_path, dataset, convert_report)
+- [x] 判断模型是否支持
+- [x] 模型转换成 `kmodel` 模型，保存在 `project/applications` 
+- [x] `kmodel` 模型转存为十六进制，保存在 `project/applications` 
+- [x] 生成 `rt_ai_<model_name>_model.h` 文件，保存在 `project/applications` 
+- [x] 生成 `rt_ai_<model_name>_model.c` 文件，保存在 `project/applications` 
+- [x] 在 `project` 中写入 `RTT_EXEC_PATH` 环境变量
+- [x] 判断是否删除 `convert_report.txt`
+- [ ] 修改 `main.c`
 
-    output: cmd 运行结果
+### 3.1 Function1 - 判断模型是否支持
 
-- sub_func
+- 函数：`is_support_model_type(model_types, model)`
+- 功能：判断模型类型是否支持
+- input: (model_types, model)
+- output: model name
 
-    rt_ai_model_gen()
+### 3.2 Function2 - 转换 kmodel
 
-    根据上一个函数的 cmd 运行保存的txt，生成 `rt_ai_<model_name>_model.h`， 另存为 project/applications 路径下
+- 函数：`convert_kmodel(model, project, dataset, kmodel_name, convert_report)`
+- 功能：将输入模型转成 `kmodel` 模型，保存路径：`project/applications/<kmodel_name>.kmodel` ，并将运行日志保存为：`./platforms/k210/convert_report.txt`
+- input: (model, project, dataset, kmodel_name, convert_report)
+- output: 模型转换的输出日志
 
-    输入：(convert_report, project, model_name)
+### 3.3 Function3 -  转存16进制
 
-    输出：模型信息
+- 函数：`hex_read_model(self, project, model)`
+- 功能：将 `kmodel` 模型转存为十六进制，`project/applications/<kmodel_name>_kmodel.c` 
+- input: (project, model)
 
-- sub_func：
+### 3.4 Function4 - 生成 rt_ai_model.h
 
-    load_rt_ai_model_c() - 在update_info.py 中已经实现
+- 函数：`rt_ai_model_gen(convert_report, project, model_name)`
+- 功能：根据 `./platforms/k210/convert_report.txt` 生成 `rt_ai_<model_name>_model.h` 文件
+- input: (convert_report, project, model_name)
+- output: `rt_ai_<model_name>_model.h` 文件内容
 
-    ~~把生成的rt_ai_<model_name>_model.c 加载到 project/applications 中~~
+### 3.5 Function5 - 生成 rt_ai_model.c
 
-    > ~~做法：documents 中 rt_ai_facelandmark_model.c 中模型名变量替换~~
+- 函数：`load_rt_ai_example(rt_ai_example, project, old_name, new_name, platform)`
+- 功能：根据 `Documents/k210.c` 生成 `rt_ai_<model_name>_model.c` 文件
+- input: (Documents_path, project, default_name, kmodel_name, platform)
 
-    ~~输入：(project_path, rt_ai_model_path)~~
+### 3.6 Function6 - RTT_EXEC_PATH 环境变量
 
-    ~~输出：True~~
-    
-- ~~sub_func~~
-
-    ~~rm_convert_report~~
-
-    ~~如果flag 为真，那么删除 convert_report.txt 文件~~
-
-    ~~input: (convert_report)~~
-
-    ~~output: None~~
-
-
-
-func:
-
-set_gcc_path()
-
-人为指定 RTT_EXEC_PATH 路径，即手动设置 k210 的交叉编译工具链，具体做法：
-
-修改 project/rtconfig.py 中的第23行，增加设置 RTT_EXEC_PATH 的命令
-
-![](https://gitee.com/lebhoryi/PicGoPictureBed/raw/master/img/20210220154318.png)
-
-input: (project, embed_gcc_path)
-
-output: None
-
----
-
-**待定**
-
-func:
-
-修改main.c 中的各个模型的相关变量名
-
-输入： (project, model_name)
-
-
+- 函数：`set_gcc_path(project, embed_gcc)`
+- 功能：在 `project/rtthread.py` 文件的第十四行写入 `RTT_EXEC_PATH` 变量，这样就不用在 `env` 中手动指定路径了。
+- input: (project, embed_gcc)
 
