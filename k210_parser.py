@@ -16,6 +16,8 @@ def platform_parameters(parser):
                         help="The Kendryte RISC-V GNU Compiler Toolchain.")
     parser.add_argument("--ext_tools", type=str, default="./platforms/k210/k_tools",
                         help="NNcase excute file path. Convert tflite/onnx/caffe model to kmodel.")
+    parser.add_argument("--rt_ai_example", type=str, default="./platforms/stm32/docs",
+                        help="Model & platform informations registered to RT-AK Lib, eg:stm32, k210.")
     parser.add_argument("--dataset", type=str, default="./platforms/k210/datasets/images",
                         help="Quantize model needed")
     parser.add_argument("--convert_report", type=str, default="./platforms/k210/convert_report.txt",

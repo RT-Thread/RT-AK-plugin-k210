@@ -16,6 +16,7 @@
 | ------------------- | ------------------------------------------------------------ |
 | --embed_gcc         | 交叉编译工具链路径，**需要用户指定**                         |
 | **--ext_tools**     | `NNCase` 路径，将模型转换为 `kmodel`，默认是 `./platforms/k210/k_tools` |
+| `--rt_ai_example`   | 存放`rt_ai_<model_name>_model.c` 示例文件，默认是 `./platforms/k210/docs` |
 | **--dataset**       | 模型量化过程中所需要用到的数据集，**需要用户指定**           |
 | --convert_report    | 模型转换成 `kmodel` 的日志输出，默认是 `./platforms/k210/convert_report.txt` |
 | --model_types       | `RT-AK Tools` 所支持的模型类型，目前仅支持：tflite、onnx、caffe |
