@@ -29,3 +29,4 @@ typedef struct k210_kpu *k210_kpu_t;
 int backend_k210_kpu(void *k210_kpu_s);
 #endif //RT_AI_USE_K210
 #endif
+
