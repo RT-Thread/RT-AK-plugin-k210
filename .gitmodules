@@ -1,3 +1,0 @@
-[submodule "backend_k210"]
-	path = backend_k210
-	url = https://git.rt-thread.com/liqiwen/backend_k210_kpu.git
