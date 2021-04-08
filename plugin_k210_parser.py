@@ -14,13 +14,13 @@ def platform_parameters(parser):
     """ K210 platform parameters """
     parser.add_argument("--embed_gcc", type=str, default=r"D:\Project\k210_third_tools\xpack-riscv-none-embed-gcc-8.3.0-1.2\bin",
                         help="The Kendryte RISC-V GNU Compiler Toolchain.")
-    parser.add_argument("--ext_tools", type=str, default="./platforms/k210/k_tools",
+    parser.add_argument("--ext_tools", type=str, default="./platforms/plugin_k210/k_tools",
                         help="NNcase excute file path. Convert tflite/onnx/caffe model to kmodel.")
-    parser.add_argument("--rt_ai_example", type=str, default="./platforms/stm32/docs",
+    parser.add_argument("--rt_ai_example", type=str, default="./platforms/plugin_k210/docs",
                         help="Model & platform informations registered to RT-AK Lib, eg:stm32, k210.")
-    parser.add_argument("--dataset", type=str, default="./platforms/k210/datasets/images",
+    parser.add_argument("--dataset", type=str, default="./platforms/plugin_k210/datasets/images",
                         help="Quantize model needed")
-    parser.add_argument("--convert_report", type=str, default="./platforms/k210/convert_report.txt",
+    parser.add_argument("--convert_report", type=str, default="./platforms/plugin_k210/convert_report.txt",
                         help="The report about nncase convert model to kmodel.")
     parser.add_argument("--model_types", type=str, default="tflite caffe onnx",
                         help="The supported model types, tflite|caffe|onnx")

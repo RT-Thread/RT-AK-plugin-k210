@@ -17,7 +17,7 @@ from pathlib import Path
 path = os.path.dirname(__file__)
 sys.path.append(os.path.join(path, '../../'))
 
-from platforms.k210 import k210_parser
+from platforms.plugin_k210 import k210_parser
 
 
 def multiple_inputs_and_outputs(rt_ai, inputs, num):

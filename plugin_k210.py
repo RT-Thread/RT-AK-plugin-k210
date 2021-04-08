@@ -23,7 +23,7 @@ from pathlib import Path
 path = os.path.dirname(__file__)
 sys.path.append(os.path.join(path, '../../'))
 
-from platforms.k210 import generate_rt_ai_model_h
+from platforms.plugin_k210 import generate_rt_ai_model_h
 
 
 class Plugin(object):
