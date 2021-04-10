@@ -24,8 +24,6 @@
 | **--enable_rt_lib** | 在 `project/rtconfgi.h` 中打开宏定义 `RT_AI_USE_K210`，默认是 `RT_AI_USE_K210` |
 | **--flag**          | 是否需要删除 `convert_report.txt` ，默认 `False`             |
 
-## 
-
 ### Part2：k210
 
 目前耗时在 220s 左右，时间占用最长在 nncase 转换模型的过程中，耗时 200s 上下。
@@ -36,7 +34,7 @@
 python aitools.py --project=<your_project_path> --model_path=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset>
 
 # 示例
-python aitools.py --project="D:\Project\k210_val" --model_path="./Model/facelandmark.tflite" --platform=k210 --embed_gcc="D:\Project\k210_third_tools\xpack-riscv-none-embed-gcc-8.3.0-1.2\bin" --dataset="./platforms/k210/datasets/images"
+python aitools.py --project="D:\Project\k210_val" --model="./Models/facelandmark.tflite" --platform=k210 --embed_gcc="D:\Project\k210_third_tools\xpack-riscv-none-embed-gcc-8.3.0-1.2\bin" --dataset="./platforms/plugin_k210/datasets/images"
 ```
 
 ![](https://gitee.com/lebhoryi/PicGoPictureBed/raw/master/img/20210223151447.png)

@@ -17,7 +17,7 @@ from pathlib import Path
 path = os.path.dirname(__file__)
 sys.path.append(os.path.join(path, '../../'))
 
-from platforms.plugin_k210 import k210_parser
+from platforms.plugin_k210 import plugin_k210_parser
 
 
 def multiple_inputs_and_outputs(rt_ai, inputs, num):
@@ -89,7 +89,7 @@ def rt_ai_model_gen(convert_report, project, model_name):
     inputs_num, outputs_num = len(inputs), len(outputs)
 
     # saved work_buffer/inputs/outputs
-    parser_in_convert, rt_ai_info, model_name_upper = k210_parser.model_info(model_name, work_buffer)
+    parser_in_convert, rt_ai_info, model_name_upper = plugin_k210_parser.model_info(model_name, work_buffer)
 
     # rt ai input/output info
     rt_ai_input_info = rt_ai_info["input_info"]

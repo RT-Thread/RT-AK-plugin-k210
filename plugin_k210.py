@@ -29,7 +29,7 @@ from platforms.plugin_k210 import generate_rt_ai_model_h
 class Plugin(object):
     def __init__(self, opt):
         self.project = opt.project
-        self.model_path = opt.model_path
+        self.model_path = opt.model
         self.platform = opt.platform
         self.rt_ai_example = opt.rt_ai_example
 
@@ -202,8 +202,8 @@ class Plugin(object):
         # 1. set nncase env
         self.set_env(self.ext_tools)
 
-        # 2.1 convert model to kmodel
-        kmodel_path = self.convert_kmodel(self.model_path, self.project, self.dataset, self.kmodel_name, self.convert_report)
+        # # 2.1 convert model to kmodel
+        # kmodel_path = self.convert_kmodel(self.model_path, self.project, self.dataset, self.kmodel_name, self.convert_report)
 
         # 2.2 save kmodel with hex
         self.hex_read_model(self.project, self.kmodel_name)
