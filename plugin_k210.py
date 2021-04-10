@@ -28,18 +28,22 @@ from platforms.plugin_k210 import generate_rt_ai_model_h
 
 class Plugin(object):
     def __init__(self, opt):
+        # aitools base parsers
         self.project = opt.project
         self.model_path = opt.model
         self.platform = opt.platform
-        self.rt_ai_example = opt.rt_ai_example
 
-        self.ext_tools = opt.ext_tools
+        # plugin_k210 parser
         self.embed_gcc = opt.embed_gcc
+        self.ext_tools = opt.ext_tools
+        self.inference_type = opt.inference_type
         self.dataset = opt.dataset
+        self.dataset_format = opt.dataset_format
+        self.rt_ai_example = opt.rt_ai_example
         self.convert_report = opt.convert_report
         self.model_types = opt.model_types
-        self.flag = opt.flag
         self.network = opt.network
+        self.flag = opt.flag
 
         kmodel_name = self.is_support_model_type(self.model_types, self.model_path)
         self.kmodel_name = opt.model_name if opt.model_name else kmodel_name
@@ -77,7 +81,7 @@ class Plugin(object):
         return ncc_info
 
 
-    def convert_kmodel(self, model, project, dataset, kmodel_name, convert_report):
+    def convert_kmodel(self, model, project, inference_type, dataset, dataset_format, kmodel_name, convert_report):
         """ convert your model to kmodel"""
         model, project = Path(model), Path(project)
 
@@ -85,9 +89,11 @@ class Plugin(object):
 
         # kmodel path
         output_model = project / f"applications/{kmodel_name}.kmodel"
+        base_cmd = f"ncc compile {model} {output_model} -i {model.suffix[1:]} -t k210 " \
+                   f"--inference-type={inference_type}"
+        convert_cmd = base_cmd if inference_type == "float" \
+            else f"{base_cmd} --dataset={dataset} --dataset-format={dataset_format}"
 
-        convert_cmd = f"ncc compile {model} {output_model} -i {model.suffix[1:]} -t k210 " \
-                      f"--inference-type uint8 --dataset {dataset}"
         cmd_out = self.excute_cmd(convert_cmd)
 
         with open(convert_report, "wb+") as f:
@@ -202,8 +208,9 @@ class Plugin(object):
         # 1. set nncase env
         self.set_env(self.ext_tools)
 
-        # # 2.1 convert model to kmodel
-        # kmodel_path = self.convert_kmodel(self.model_path, self.project, self.dataset, self.kmodel_name, self.convert_report)
+        # 2.1 convert model to kmodel
+        kmodel_path = self.convert_kmodel(self.model_path, self.project, self.inference_type, self.dataset,
+                                          self.dataset_format, self.kmodel_name, self.convert_report)
 
         # 2.2 save kmodel with hex
         self.hex_read_model(self.project, self.kmodel_name)
@@ -243,7 +250,7 @@ if __name__ == "__main__":
     class Opt():
         def __init__(self):
             self.project = r"tmp_cwd"
-            self.model_path = "../../Model/facelandmark.tflite"
+            self.model = "../../Model/facelandmark.tflite"
             self.platform = "k210"
             self.rt_ai_example = "../../Documents"
             self.model_name = "facelandmark"
@@ -251,12 +258,14 @@ if __name__ == "__main__":
             # k210
             self.embed_gcc = r"D:\Project\k210_third_tools\xpack-riscv-none-embed-gcc-8.3.0-1.2\bin"
             self.ext_tools = r"./k_tools"
+            self.inference_type = "uint8"
             self.model_types = "tflite caffe onnx"
+            self.dataset_format = "image"
             self.convert_report = "./convert_report.txt"
             self.dataset = "./datasets/images"
             self.network = "facelandmark"
             self.flag = False
 
     opt = Opt()
-    k210 = K210(opt)
-    _ = k210.run_k210()
+    k210 = Plugin(opt)
+    _ = k210.run_plugin()

@@ -53,8 +53,10 @@ k210
 | ------------------- | ------------------------------------------------------------ |
 | --embed_gcc         | 交叉编译工具链路径，**需要用户指定**                         |
 | **--ext_tools**     | `NNCase` 路径，将模型转换为 `kmodel`，默认是 `./platforms/k210/k_tools` |
-| `--rt_ai_example`   | 存放`rt_ai_<model_name>_model.c` 示例文件，默认是 `./platforms/k210/docs` |
+| --inference_type    | 是否将模型量化为整形，如果是 `float`，不量化，将不能使用 `KPU` 加速，默认是 `uint8` |
 | **--dataset**       | 模型量化过程中所需要用到的数据集，**需要用户指定**           |
+| --dataset_format    | 量化数据集的格式，默认是 `image`，如果是音频之类的数据集，则需要设置为 `raw` |
+| --rt_ai_example     | 存放`rt_ai_<model_name>_model.c` 示例文件，默认是 `./platforms/k210/docs` |
 | --convert_report    | 模型转换成 `kmodel` 的日志输出，默认是 `./platforms/k210/convert_report.txt` |
 | --model_types       | `RT-AK Tools` 所支持的模型类型，目前模型支持范围：`tflite、onnx、caffe` |
 | --**network**       | 在 `Documents` 中的模板文件的模型名，默认是 `facelandmark`   |
@@ -65,25 +67,30 @@ k210
 
 > 目前耗时在 220s 左右，时间占用最长在 nncase 转换模型的过程中，耗时 200s 上下。
 
-1. 基础运行命令：
+```bash
+# 非量化，不使用 KPU 加速， --inference_type
+$ python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --inference_type=float
 
-```shell
-python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset>
+# 量化为 uint8，使用 KPU 加速，量化数据集为图片
+$ python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset>
 
-# 示例
-python aitools.py --project="D:\Project\k210_val" --model="./Models/facelandmark.tflite" --platform=k210 --embed_gcc="D:\Project\k210_third_tools\xpack-riscv-none-embed-gcc-8.3.0-1.2\bin" --dataset="./platforms/plugin_k210/datasets/images"
+# 量化为 uint8，使用 KPU 加速，量化数据集为音频之类非图片，--dataset_format
+$ python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --dataset_format=raw
+
+# 示例(量化模型，图片数据集)
+$ python aitools.py --project="D:\Project\k210_val" --model="./Models/facelandmark.tflite" --platform=k210 --embed_gcc="D:\Project\k210_third_tools\xpack-riscv-none-embed-gcc-8.3.0-1.2\bin" --dataset="./platforms/plugin_k210/datasets/images"
 ```
 
 ![](https://gitee.com/lebhoryi/PicGoPictureBed/raw/master/img/20210223151447.png)
 
-2. 其他：
+其他：
 
 ```shell
 # 指定转换的模型名称，--model_name 默认为 network
-python aitools.py --project=<your_project_path> --model=<your_model_path> --model_name=<model_name> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --flag
+$ python aitools.py --project=<your_project_path> --model=<your_model_path> --model_name=<model_name> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --flag
 
 # 不保存模型转换日志，--flag
-python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --flag
+$ python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --flag
 ```
 
 ## 功能列表

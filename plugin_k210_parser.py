@@ -16,10 +16,14 @@ def platform_parameters(parser):
                         help="The Kendryte RISC-V GNU Compiler Toolchain.")
     parser.add_argument("--ext_tools", type=str, default="./platforms/plugin_k210/k_tools",
                         help="NNcase excute file path. Convert tflite/onnx/caffe model to kmodel.")
+    parser.add_argument("--inference_type", type=str, default="uint8",
+                        help="inference type: e.g. float, uint8 default is uint8")
+    parser.add_argument("--dataset", type=str, default="./platforms/plugin_k210/datasets/images",
+                        help="calibration dataset, used in post quantization, only quantize used")
+    parser.add_argument("--dataset_format", type=str, default="image",
+                        help="The datset format: e.g. image, raw. Default is image, only quantize used")
     parser.add_argument("--rt_ai_example", type=str, default="./platforms/plugin_k210/docs",
                         help="Model & platform informations registered to RT-AK Lib, eg:stm32, k210.")
-    parser.add_argument("--dataset", type=str, default="./platforms/plugin_k210/datasets/images",
-                        help="Quantize model needed")
     parser.add_argument("--convert_report", type=str, default="./platforms/plugin_k210/convert_report.txt",
                         help="The report about nncase convert model to kmodel.")
     parser.add_argument("--model_types", type=str, default="tflite caffe onnx",
