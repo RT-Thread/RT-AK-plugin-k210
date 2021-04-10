@@ -1,4 +1,16 @@
-## 2. 硬件平台2 - k210
+<center><h1>RT-AK 之 K210</h1></center>
+
+- [简介](# 简介)
+- [目录结构](# 目录结构)
+- [参数说明](# 参数说明)
+- [运行](# 运行)
+- [功能列表](# 功能列表)
+
+## 简介
+
+*本项目归属于 `RT-AK` 主项目中的一个子模块。*
+
+*使用堪智 `K210` 原厂插件进行开发，嘉楠科技*
 
 - k210 SDK |  Version: v0.5.6
 
@@ -10,7 +22,32 @@
 
   > PS: [linux下python脚本烧录](https://github.com/kendryte/kflash.py)
 
-### Part3：k210 参数
+## 目录结构
+
+```shell
+% tree k210                                                               ~/tmp
+k210
+├── backend_plugin_k210  			# 将模型信息注册到 RT-AK Lib 后端
+│   ├── backend_k210_kpu.c
+│   ├── backend_k210_kpu.h
+│   └── readme.md
+├── datasets
+│   └── images 						# 用于模型量化的数据集
+├── docs  							#k210 相关文档
+│   └── k210.c  					# rt_ai_<model_name>_model.c 示例文件
+├── generate_rt_ai_model_h.py  		# 生成 rt_ai_<model_name>_model.h
+├── k_tools  						# k210 所使用的相关工具
+│   └── ncc.exe  					# k210 模型转成 kmodel 模型工具
+├── plugin_k210_parser.py  			# k210 参数
+├── plugin_k210.py 					# k210 插件运行
+└── README.md
+
+5 directories, 9 files
+```
+
+## 参数说明
+
+> 详见 `plugin_k210_parser.py` 
 
 | Parameter           | Description                                                  |
 | ------------------- | ------------------------------------------------------------ |
@@ -19,19 +56,19 @@
 | `--rt_ai_example`   | 存放`rt_ai_<model_name>_model.c` 示例文件，默认是 `./platforms/k210/docs` |
 | **--dataset**       | 模型量化过程中所需要用到的数据集，**需要用户指定**           |
 | --convert_report    | 模型转换成 `kmodel` 的日志输出，默认是 `./platforms/k210/convert_report.txt` |
-| --model_types       | `RT-AK Tools` 所支持的模型类型，目前仅支持：tflite、onnx、caffe |
+| --model_types       | `RT-AK Tools` 所支持的模型类型，目前模型支持范围：`tflite、onnx、caffe` |
 | --**network**       | 在 `Documents` 中的模板文件的模型名，默认是 `facelandmark`   |
 | **--enable_rt_lib** | 在 `project/rtconfgi.h` 中打开宏定义 `RT_AI_USE_K210`，默认是 `RT_AI_USE_K210` |
 | **--flag**          | 是否需要删除 `convert_report.txt` ，默认 `False`             |
 
-### Part2：k210
+## 运行
 
-目前耗时在 220s 左右，时间占用最长在 nncase 转换模型的过程中，耗时 200s 上下。
+> 目前耗时在 220s 左右，时间占用最长在 nncase 转换模型的过程中，耗时 200s 上下。
 
 1. 基础运行命令：
 
 ```shell
-python aitools.py --project=<your_project_path> --model_path=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset>
+python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset>
 
 # 示例
 python aitools.py --project="D:\Project\k210_val" --model="./Models/facelandmark.tflite" --platform=k210 --embed_gcc="D:\Project\k210_third_tools\xpack-riscv-none-embed-gcc-8.3.0-1.2\bin" --dataset="./platforms/plugin_k210/datasets/images"
@@ -43,18 +80,13 @@ python aitools.py --project="D:\Project\k210_val" --model="./Models/facelandmark
 
 ```shell
 # 指定转换的模型名称，--model_name 默认为 network
-python aitools.py --project=<your_project_path> --model_path=<your_model_path> --model_name=<model_name> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --flag
+python aitools.py --project=<your_project_path> --model=<your_model_path> --model_name=<model_name> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --flag
 
 # 不保存模型转换日志，--flag
-python aitools.py --project=<your_project_path> --model_path=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --flag
-
-# 指定 kmodel 名称，--kmodel_name
-python aitools.py --project=<your_project_path> --model_path=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --kmodel_name=<new_model_name>
+python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --flag
 ```
 
-# 
-
-## 3. k210
+## 功能列表
 
 - [x] 判断模型是否支持
 - [x] 模型转换成 `kmodel` 模型，保存在 `project/applications` 
@@ -63,7 +95,7 @@ python aitools.py --project=<your_project_path> --model_path=<your_model_path> -
 - [x] 生成 `rt_ai_<model_name>_model.c` 文件，保存在 `project/applications` 
 - [x] 在 `project` 中写入 `RTT_EXEC_PATH` 环境变量
 - [x] 判断是否删除 `convert_report.txt`
-- [ ] 修改 `main.c`
+- [ ] ~~修改 `main.c`~~
 
 ### 3.1 Function1 - 判断模型是否支持
 
