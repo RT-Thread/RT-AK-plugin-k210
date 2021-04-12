@@ -90,9 +90,10 @@ class Plugin(object):
         # kmodel path
         output_model = project / f"applications/{kmodel_name}.kmodel"
         base_cmd = f"ncc compile {model} {output_model} -i {model.suffix[1:]} -t k210 " \
-                   f"--inference-type={inference_type}"
+                   f"--inference-type " \
+                   f"{inference_type}"
         convert_cmd = base_cmd if inference_type == "float" \
-            else f"{base_cmd} --dataset={dataset} --dataset-format={dataset_format}"
+            else f"{base_cmd} --dataset {dataset} --dataset-format {dataset_format}"
 
         cmd_out = self.excute_cmd(convert_cmd)
 
