@@ -62,6 +62,13 @@ def handle_in_out(rt_ai_info, model_info, rt_ai_in_out, nncase_out):
     return model_info
 
 
+def get_io(line, io="output"):
+    # N, C, H, W
+    io_shape = line.strip().split()[-1]
+    io_shape_list = io_shape.replace('x', ' * ')
+    return f"({io_shape_list})"
+
+
 def rt_ai_model_gen(convert_report, project, model_name):
     """ generate rt_ai_<model_name>_model.h """
     # work buffer
@@ -72,19 +79,19 @@ def rt_ai_model_gen(convert_report, project, model_name):
 
     with open(convert_report, "r+") as f:
         lines = f.readlines()
-    for line in lines:
+    for i, line in enumerate(lines):
         if "Working memory usage" in line:
             work_buffer = line.strip().split()[-2]
-        elif "Input" in line:
-            NCHW = line.strip().split()[-1]
-            _, c, h, w = NCHW.split("x")
-            HWC = "(" + " * ".join([h, w, c]) + ")"
-            inputs.append(HWC)
-        elif "Identity" in line:
-            output = line.strip().split()[-1]
-            output = output.split("x")
-            output = "(" + " * ".join(output) + ")"
-            outputs.append(output)
+        elif "INPUTS" in line:
+            for j in range(i+1, len(lines)):
+                if "OUTPUTS" in lines[j]:
+                    break
+                inputs.append(get_io(lines[j]))
+        elif "OUTPUTS" in line:
+            for j in range(i+1, len(lines)):
+                if not lines[j]:
+                    break
+                outputs.append(get_io(lines[j]))
 
     inputs_num, outputs_num = len(inputs), len(outputs)
 

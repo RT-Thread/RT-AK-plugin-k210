@@ -73,7 +73,7 @@ class Plugin(object):
 
         # validate
         ncc_info = self.excute_cmd("ncc --version")
-        ncc_info = ncc_info.decode("utf-8")
+        ncc_info = ncc_info.decode("utf-8").strip()
         if not ncc_info:
             raise Exception("Set nncase env wrong！！！")
         logging.info(f"ncc {str(ncc_info)}")
@@ -209,12 +209,12 @@ class Plugin(object):
         # 1. set nncase env
         self.set_env(self.ext_tools)
 
-        # 2.1 convert model to kmodel
-        kmodel_path = self.convert_kmodel(self.model_path, self.project, self.inference_type, self.dataset,
-                                          self.dataset_format, self.kmodel_name, self.convert_report)
+        # # 2.1 convert model to kmodel
+        # kmodel_path = self.convert_kmodel(self.model_path, self.project, self.inference_type, self.dataset,
+        #                                   self.dataset_format, self.kmodel_name, self.convert_report)
 
-        # 2.2 save kmodel with hex
-        self.hex_read_model(self.project, self.kmodel_name)
+        # # 2.2 save kmodel with hex
+        # self.hex_read_model(self.project, self.kmodel_name)
 
 
         # 3.1 generate rt_ai_<model_name>_model.h

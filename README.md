@@ -78,7 +78,7 @@ $ python aitools.py --project=<your_project_path> --model=<your_model_path> --pl
 $ python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --dataset_format=raw
 
 # 示例(量化模型，图片数据集)
-$ python aitools.py --project="D:\Project\k210_val" --model="./Models/facelandmark.tflite" --platform=k210 --embed_gcc="D:\Project\k210_third_tools\xpack-riscv-none-embed-gcc-8.3.0-1.2\bin" --dataset="./platforms/plugin_k210/datasets/images"
+$ python aitools.py --project="D:\Project\k210_val" --model="./Models/facelandmark.tflite" --model_name=facelandmark --platform=k210 --embed_gcc="D:\Project\k210_third_tools\xpack-riscv-none-embed-gcc-8.3.0-1.2\bin" --dataset="./platforms/plugin_k210/datasets/images"
 ```
 
 ![](https://gitee.com/lebhoryi/PicGoPictureBed/raw/master/img/20210223151447.png)
