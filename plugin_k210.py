@@ -43,7 +43,7 @@ class Plugin(object):
         self.convert_report = opt.convert_report
         self.model_types = opt.model_types
         self.network = opt.network
-        self.flag = opt.flag
+        self.clear = opt.clear
 
         kmodel_name = self.is_support_model_type(self.model_types, self.model_path)
         self.kmodel_name = opt.model_name if opt.model_name else kmodel_name
@@ -237,7 +237,7 @@ class Plugin(object):
 
 
         # 5. remove convert_report.txt or not
-        if os.path.exists(self.convert_report) and self.flag:
+        if os.path.exists(self.convert_report) and self.clear:
             os.remove(self.convert_report)
 
         return True
@@ -273,7 +273,7 @@ if __name__ == "__main__":
             self.convert_report = "./convert_report.txt"
             self.dataset = "./datasets/images"
             self.network = "facelandmark"
-            self.flag = False
+            self.clear = False
 
     opt = Opt()
     k210 = Plugin(opt)
