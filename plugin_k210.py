@@ -1,7 +1,7 @@
 # coding=utf-8
 '''
 @ Summary: how to use k210
-@ Update:  
+@ Update:
 
 @ file:    k210.py
 @ version: 1.0.0
@@ -68,7 +68,7 @@ class Plugin(object):
                 line = screenData.stdout.readline()
                 line_str = line.decode('utf-8').strip()
                 result.append(line_str)
-                print(line_str)
+                print(f"\t{line_str}")
                 if line == b'' or subprocess.Popen.poll(screenData) == 0:
                     screenData.stdout.close()
                     break
@@ -86,7 +86,7 @@ class Plugin(object):
         os.environ["PATH"] += (";" + ncc_path)
 
         # validate
-        ncc_info = self.excute_cmd("ncc --version", True)
+        ncc_info = self.excute_cmd("ncc --version")
         if not ncc_info:
             raise Exception("Set nncase env wrong！！！")
         logging.info(f"ncc {ncc_info[0]}...")
