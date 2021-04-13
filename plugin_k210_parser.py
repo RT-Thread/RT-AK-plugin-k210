@@ -32,7 +32,7 @@ def platform_parameters(parser):
                         help="The model name in '<tools>/Documents/<stm32> files'")
     parser.add_argument("--enable_rt_lib", type=str, default="RT_AI_USE_K210",
                         help="Enabel RT-AK Lib using k210")
-    parser.add_argument("--flag", action="store_true", help="Remove convert_report.txt or not.")
+    parser.add_argument("--clear", action="store_true", help="Remove convert_report.txt or not.")
     return parser
 
 

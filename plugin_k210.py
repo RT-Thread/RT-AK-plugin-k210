@@ -74,6 +74,7 @@ class Plugin(object):
                     break
         else:
             result.append(screenData.stdout.read())
+            screenData.stdout.close()
         return result
 
 
