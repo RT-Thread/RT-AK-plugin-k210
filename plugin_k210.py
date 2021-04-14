@@ -198,14 +198,14 @@ class Plugin(object):
         with open(rtconfig_py, "r+") as fr:
             lines = fr.readlines()
 
-        set_embed_gcc_env = f"\nos.environ['RTT_EXEC_PATH'] = r'{embed_gcc}'\n"
+        set_embed_gcc_env = f"os.environ['RTT_EXEC_PATH'] = r'{embed_gcc}'"
 
         if set_embed_gcc_env in lines:
             logging.info("Don't set GNU Compiler Toolchain again...")
             return
         for index, line in enumerate(lines):
             if "RTT_EXEC_PATH" in line:
-                lines = lines[:index - 1] + [set_embed_gcc_env] + lines[index:]
+                lines = lines[:index - 1] + ["\n", set_embed_gcc_env, "\n"] + lines[index:]
                 break
 
         with open(rtconfig_py, "w+") as fw:
