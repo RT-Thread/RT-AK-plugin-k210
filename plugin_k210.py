@@ -240,6 +240,7 @@ class Plugin(object):
         # 5. remove convert_report.txt or not
         if os.path.exists(self.convert_report) and self.clear:
             os.remove(self.convert_report)
+            os.remove(self.kmodel_path)
 
         return True
 
