@@ -1,7 +1,7 @@
 # coding=utf-8
 '''
 @ Summary: how to use k210
-@ Update:  
+@ Update:
 
 @ file:    k210.py
 @ version: 1.0.0
@@ -43,10 +43,11 @@ class Plugin(object):
         self.convert_report = opt.convert_report
         self.model_types = opt.model_types
         self.network = opt.network
-        self.flag = opt.flag
+        self.clear = opt.clear
 
         kmodel_name = self.is_support_model_type(self.model_types, self.model_path)
         self.kmodel_name = opt.model_name if opt.model_name else kmodel_name
+        self.kmodel_path = Path(__file__).parent / f"{self.kmodel_name}.kmodel"
 
 
     def is_support_model_type(self, model_types, model):
@@ -58,10 +59,23 @@ class Plugin(object):
         return model.stem
 
 
-    def excute_cmd(self, cmd):
+    def excute_cmd(self, cmd, is_realtime=False):
         """ Returnning string after the command is executed """
-        p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE).stdout
-        return p.read()
+        result = list()
+        screenData = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+        if is_realtime:
+            while True:
+                line = screenData.stdout.readline()
+                line_str = line.decode('utf-8').strip()
+                result.append(line_str)
+                print(f"\t{line_str}")
+                if line == b'' or subprocess.Popen.poll(screenData) == 0:
+                    screenData.stdout.close()
+                    break
+        else:
+            result.append(screenData.stdout.read())
+            screenData.stdout.close()
+        return result
 
 
     def set_env(self, ncc_path):
@@ -73,45 +87,40 @@ class Plugin(object):
 
         # validate
         ncc_info = self.excute_cmd("ncc --version")
-        ncc_info = ncc_info.decode("utf-8").strip()
         if not ncc_info:
             raise Exception("Set nncase env wrong！！！")
-        logging.info(f"ncc {str(ncc_info)}")
+        logging.info(f"ncc {ncc_info[0]}...")
 
         return ncc_info
 
 
-    def convert_kmodel(self, model, project, inference_type, dataset, dataset_format, kmodel_name, convert_report):
+    def convert_kmodel(self, model, kmodel_path, inference_type, dataset, dataset_format,
+                       convert_report):
         """ convert your model to kmodel"""
-        model, project = Path(model), Path(project)
-
+        model = Path(model)
         assert model.exists(), FileNotFoundError("No model found, pls check the model path!!!")
 
         # kmodel path
-        output_model = project / f"applications/{kmodel_name}.kmodel"
-        base_cmd = f"ncc compile {model} {output_model} -i {model.suffix[1:]} -t k210 " \
+        base_cmd = f"ncc compile {model} {kmodel_path} -i {model.suffix[1:]} -t k210 " \
                    f"--inference-type " \
                    f"{inference_type}"
         convert_cmd = base_cmd if inference_type == "float" \
             else f"{base_cmd} --dataset {dataset} --dataset-format {dataset_format}"
 
-        cmd_out = self.excute_cmd(convert_cmd)
+        cmd_out = self.excute_cmd(convert_cmd, is_realtime=True)
+        report = "\n".join(cmd_out)
 
-        with open(convert_report, "wb+") as f:
-            f.write(cmd_out)
+        with open(convert_report, "w+") as f:
+            f.write(report)
 
         logging.info("Convert model to kmodel successfully...")
 
-        return output_model
 
-
-    def hex_read_model(self, project, model):
+    def hex_read_model(self, kmodel_path, project, model):
         """ save model with hex """
-        model_path = Path(project) / f"applications/{model}.kmodel"
-        output_path = Path(model_path.parent)
+        output_path = Path(project) / "applications"
 
-
-        f = open(model_path, "rb")
+        f = open(kmodel_path, "rb")
         # lenth of bytes
         count_bytes = 0
         s = f.read(1)
@@ -127,8 +136,8 @@ class Plugin(object):
             s = f.read(1)
         f.close()
 
-        head = f"unsigned char {model_path.stem}_kmodel[] = {'{'}\n"
-        tail = f"unsigned int {model_path.stem}_{model_path.suffix[1:]}_len = {count_bytes};\n"
+        head = f"unsigned char {kmodel_path.stem}_kmodel[] = {'{'}\n"
+        tail = f"unsigned int {kmodel_path.stem}_{kmodel_path.suffix[1:]}_len = {count_bytes};\n"
 
         result = [head] + result + ["};\n"] + [tail]
 
@@ -189,14 +198,14 @@ class Plugin(object):
         with open(rtconfig_py, "r+") as fr:
             lines = fr.readlines()
 
-        set_embed_gcc_env = f"\nos.environ['RTT_EXEC_PATH'] = r'{embed_gcc}'\n"
+        set_embed_gcc_env = f"os.environ['RTT_EXEC_PATH'] = r'{embed_gcc}'"
 
         if set_embed_gcc_env in lines:
             logging.info("Don't set GNU Compiler Toolchain again...")
             return
         for index, line in enumerate(lines):
             if "RTT_EXEC_PATH" in line:
-                lines = lines[:index - 1] + [set_embed_gcc_env] + lines[index:]
+                lines = lines[:index - 1] + ["\n", set_embed_gcc_env, "\n"] + lines[index:]
                 break
 
         with open(rtconfig_py, "w+") as fw:
@@ -210,11 +219,11 @@ class Plugin(object):
         self.set_env(self.ext_tools)
 
         # 2.1 convert model to kmodel
-        kmodel_path = self.convert_kmodel(self.model_path, self.project, self.inference_type, self.dataset,
-                                          self.dataset_format, self.kmodel_name, self.convert_report)
+        self.convert_kmodel(self.model_path, self.kmodel_path, self.inference_type, self.dataset,
+                            self.dataset_format, self.convert_report)
 
         # 2.2 save kmodel with hex
-        self.hex_read_model(self.project, self.kmodel_name)
+        self.hex_read_model(self.kmodel_path, self.project, self.kmodel_name)
 
 
         # 3.1 generate rt_ai_<model_name>_model.h
@@ -229,8 +238,9 @@ class Plugin(object):
 
 
         # 5. remove convert_report.txt or not
-        if os.path.exists(self.convert_report) and self.flag:
+        if os.path.exists(self.convert_report) and self.clear:
             os.remove(self.convert_report)
+            os.remove(self.kmodel_path)
 
         return True
 
@@ -265,7 +275,7 @@ if __name__ == "__main__":
             self.convert_report = "./convert_report.txt"
             self.dataset = "./datasets/images"
             self.network = "facelandmark"
-            self.flag = False
+            self.clear = False
 
     opt = Opt()
     k210 = Plugin(opt)

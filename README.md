@@ -61,7 +61,7 @@ k210
 | --model_types       | `RT-AK Tools` 所支持的模型类型，目前模型支持范围：`tflite、onnx、caffe` |
 | --**network**       | 在 `Documents` 中的模板文件的模型名，默认是 `facelandmark`   |
 | **--enable_rt_lib** | 在 `project/rtconfgi.h` 中打开宏定义 `RT_AI_USE_K210`，默认是 `RT_AI_USE_K210` |
-| **--flag**          | 是否需要删除 `convert_report.txt` ，默认 `False`             |
+| **--clear**         | 是否需要删除 `convert_report.txt` ，默认 `False`             |
 
 ## 运行
 
@@ -87,10 +87,10 @@ $ python aitools.py --project="D:\Project\k210_val" --model="./Models/facelandma
 
 ```shell
 # 指定转换的模型名称，--model_name 默认为 network
-$ python aitools.py --project=<your_project_path> --model=<your_model_path> --model_name=<model_name> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --flag
+$ python aitools.py --project=<your_project_path> --model=<your_model_path> --model_name=<model_name> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --clear
 
-# 不保存模型转换日志，--flag
-$ python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --flag
+# 不保存模型转换日志，--clear
+$ python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --clear
 ```
 
 ## 功能列表
