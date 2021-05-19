@@ -52,7 +52,7 @@ class Plugin(object):
     def is_support_model_type(self, model_types, model):
         supported_model = model_types.split()
         model = Path(model)
-        assert model.suffix[1:] in supported_model, f"The {model.name} is not surpported now!!!"
+        assert model.suffix[1:] in supported_model, f"The {model.name} is not supported now!!!"
 
         logging.info(f"The model is {model.name}")
         return model.stem
@@ -209,12 +209,12 @@ class Plugin(object):
         # 1. set nncase env
         self.set_env(self.ext_tools)
 
-        # # 2.1 convert model to kmodel
-        # kmodel_path = self.convert_kmodel(self.model_path, self.project, self.inference_type, self.dataset,
-        #                                   self.dataset_format, self.kmodel_name, self.convert_report)
+        # 2.1 convert model to kmodel
+        kmodel_path = self.convert_kmodel(self.model_path, self.project, self.inference_type, self.dataset,
+                                          self.dataset_format, self.kmodel_name, self.convert_report)
 
-        # # 2.2 save kmodel with hex
-        # self.hex_read_model(self.project, self.kmodel_name)
+        # 2.2 save kmodel with hex
+        self.hex_read_model(self.project, self.kmodel_name)
 
 
         # 3.1 generate rt_ai_<model_name>_model.h
