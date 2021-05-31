@@ -12,7 +12,7 @@
 
 def platform_parameters(parser):
     """ K210 platform parameters """
-    parser.add_argument("--embed_gcc", type=str, default=r"D:\Project\k210_third_tools\xpack-riscv-none-embed-gcc-8.3.0-1.2\bin",
+    parser.add_argument("--embed_gcc", type=str, default="",
                         help="The Kendryte RISC-V GNU Compiler Toolchain.")
     parser.add_argument("--ext_tools", type=str, default="./platforms/plugin_k210/k_tools",
                         help="NNcase excute file path. Convert tflite/onnx/caffe model to kmodel.")

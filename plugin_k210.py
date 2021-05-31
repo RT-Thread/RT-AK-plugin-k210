@@ -192,21 +192,26 @@ class Plugin(object):
 
     def set_gcc_path(self, project, embed_gcc):
         """ set GNU Compiler Toolchain """
-        assert os.path.exists(embed_gcc), "No GNU Compiler Toolchain found???"
+        def clear_gcc_path(lines, index=0):
+            while (index < len(lines)):
+                if "os.environ['RTT_EXEC_PATH']" in lines[index]:
+                    lines.remove(lines[index])
+                    break
+                index += 1
+            return lines
 
         rtconfig_py = os.path.join(project, "rtconfig.py")
         with open(rtconfig_py, "r+") as fr:
             lines = fr.readlines()
+        lines = clear_gcc_path(lines)
+        if embed_gcc:
+            assert os.path.exists(embed_gcc), "No GNU Compiler Toolchain found???"
+            set_embed_gcc_env = f"os.environ['RTT_EXEC_PATH'] = r'{embed_gcc}'"
 
-        set_embed_gcc_env = f"os.environ['RTT_EXEC_PATH'] = r'{embed_gcc}'"
-
-        if set_embed_gcc_env in lines:
-            logging.info("Don't set GNU Compiler Toolchain again...")
-            return
-        for index, line in enumerate(lines):
-            if "RTT_EXEC_PATH" in line:
-                lines = lines[:index - 1] + ["\n", set_embed_gcc_env, "\n"] + lines[index:]
-                break
+            for index, line in enumerate(lines):
+                if "RTT_EXEC_PATH" in line:
+                    lines = lines[:index - 1] + ["\n", set_embed_gcc_env, "\n"] + lines[index:]
+                    break
 
         with open(rtconfig_py, "w+") as fw:
             fw.write("".join(lines))
@@ -251,7 +256,7 @@ if __name__ == "__main__":
 
     tmp_project = Path("tmp_cwd")
     app_path = tmp_project / "applications"
-    config_path = "../../../examples/k210/rtconfig.py"
+    config_path = "D:\Project\K210_Demo\PersonDetection\k210-person-template/rtconfig.py"
 
 
     if not app_path.exists():
