@@ -51,7 +51,7 @@ k210
 
 | Parameter           | Description                                                  |
 | ------------------- | ------------------------------------------------------------ |
-| --embed_gcc         | 交叉编译工具链路径，**需要用户指定**                         |
+| --embed_gcc         | 交叉编译工具链路径，非必须，如果有，则会更改`rt_config.py`文件，如果无指定，则需要在编译的时候指定该工具链路径                         |
 | **--ext_tools**     | `NNCase` 路径，将模型转换为 `kmodel`，默认是 `./platforms/k210/k_tools` |
 | --inference_type    | 是否将模型量化为整形，如果是 `float`，不量化，将不能使用 `KPU` 加速，默认是 `uint8` |
 | **--dataset**       | 模型量化过程中所需要用到的数据集，**需要用户指定**           |
@@ -69,6 +69,9 @@ k210
 
 ```bash
 # 非量化，不使用 KPU 加速， --inference_type
+$ python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210  --inference_type=float
+
+# 非量化，指定交叉编译工具链路径
 $ python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --inference_type=float
 
 # 量化为 uint8，使用 KPU 加速，量化数据集为图片
