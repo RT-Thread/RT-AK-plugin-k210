@@ -83,13 +83,14 @@ class Plugin(object):
         assert Path(ncc_path).exists(), "No {} here".format(ncc_path)
 
         # set nncase env
-        os.environ["PATH"] += (";" + ncc_path)
+        os.environ["PATH"] = ncc_path
 
         # validate
         ncc_info = self.excute_cmd("ncc --version")
         if not ncc_info:
             raise Exception("Set nncase env wrong！！！")
-        logging.info(f"ncc {ncc_info[0]}...")
+        ncc_version_info = ncc_info[0].decode().strip()
+        logging.info(f"ncc {ncc_version_info}...")
 
         return ncc_info
 
