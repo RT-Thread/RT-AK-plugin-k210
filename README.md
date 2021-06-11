@@ -10,7 +10,7 @@
 
 *本项目归属于 `RT-AK` 主项目中的一个子模块。*
 
-*使用堪智 `K210` 原厂插件进行开发，嘉楠科技*
+*使用堪智 `K210` 原 厂插件进行开发，嘉楠科技*
 
 - k210 SDK |  Version: v0.5.6
 
@@ -47,21 +47,27 @@ k210
 
 ## 参数说明
 
+本插件使用的模型转换工具是 `NNCase`， 功能：将深度神经网络模型转成 `kmodel` 格式，[资料传送门](https://github.com/kendryte/nncase/blob/master/docs/USAGE_ZH.md)
+
 > 详见 `plugin_k210_parser.py` 
 
-| Parameter           | Description                                                  |
-| ------------------- | ------------------------------------------------------------ |
-| --embed_gcc         | 交叉编译工具链路径，非必须，如果有，则会更改`rt_config.py`文件，如果无指定，则需要在编译的时候指定该工具链路径                         |
-| **--ext_tools**     | `NNCase` 路径，将模型转换为 `kmodel`，默认是 `./platforms/k210/k_tools` |
-| --inference_type    | 是否将模型量化为整形，如果是 `float`，不量化，将不能使用 `KPU` 加速，默认是 `uint8` |
-| **--dataset**       | 模型量化过程中所需要用到的数据集，**需要用户指定**           |
-| --dataset_format    | 量化数据集的格式，默认是 `image`，如果是音频之类的数据集，则需要设置为 `raw` |
-| --rt_ai_example     | 存放`rt_ai_<model_name>_model.c` 示例文件，默认是 `./platforms/k210/docs` |
-| --convert_report    | 模型转换成 `kmodel` 的日志输出，默认是 `./platforms/k210/convert_report.txt` |
-| --model_types       | `RT-AK Tools` 所支持的模型类型，目前模型支持范围：`tflite、onnx、caffe` |
-| --**network**       | 在 `Documents` 中的模板文件的模型名，默认是 `facelandmark`   |
-| **--enable_rt_lib** | 在 `project/rtconfgi.h` 中打开宏定义 `RT_AI_USE_K210`，默认是 `RT_AI_USE_K210` |
-| **--clear**         | 是否需要删除 `convert_report.txt` ，默认 `False`             |
+| Parameter                    | Description                                                  |
+| ---------------------------- | ------------------------------------------------------------ |
+| --embed_gcc                  | 交叉编译工具链路径，**非必须**。如果有，则会更改 `rt_config.py` 文件，如果无指定，则需要在编译的时候指定该工具链路径 |
+| --ext_tools                  | `NNCase` 路径，将模型转换为 `kmodel`，默认是 `./platforms/k210/k_tools` |
+| **--inference_type**         | 是否将模型量化为整形，如果是 `float`，不量化，将不能使用 `KPU` 加速，默认是 `uint8` |
+| --dataset                    | 模型量化过程中所需要用到的数据集，只需要在设置 `--inference-type` 为 `uint8` 时提供这个参数 |
+| --dataset_format             | 用于指定量化校准集的格式。默认是 `image`，如果是音频之类的数据集，则需要设置为 `raw` |
+| --weights_quantize_threshold | 控制是否量化 `conv2d` 和 `matmul weights` 的阈值。如果 `weights` 的范围大于这个阈值，`nncase` 将不会量化它 |
+| --output_quantize_threshold  | 控制是否量化 `conv2d` 和 `matmul weights` 的阈值。如果输出的元素个数小于这个阈值，`nncase` 将不会量化它。 |
+| --no_quantized_binary        | 禁用 `quantized binary` 算子，`nncase` 将总是使用 `float binary` 算子。 |
+| --dump_weights_range         | 是一个调试选项。当它打开时 `ncc` 会打印出 `conv2d weights` 的范围。 |
+| --rt_ai_example              | 存放`rt_ai_<model_name>_model.c` 示例文件，默认是 `./platforms/k210/docs` |
+| --convert_report             | 模型转换成 `kmodel` 的日志输出，默认是 `./platforms/k210/convert_report.txt` |
+| --model_types                | `RT-AK Tools` 所支持的模型类型，目前模型支持范围：`tflite、onnx、caffe` |
+| --network                    | 在 `Documents` 中的模板文件的模型名，默认是 `facelandmark`   |
+| --enable_rt_lib              | 在 `project/rtconfgi.h` 中打开宏定义 `RT_AI_USE_K210`，默认是 `RT_AI_USE_K210` |
+| **--clear**                  | 是否需要删除 `convert_report.txt` ，默认 `False`             |
 
 ## 运行
 
@@ -95,6 +101,22 @@ $ python aitools.py --project=<your_project_path> --model=<your_model_path> --mo
 # 不保存模型转换日志，--clear
 $ python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --clear
 ```
+
+## 项目工程编译
+
+**需要准备好交叉编译工具链** | [下载](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/tag/v8.3.0-1.2)
+
+设置编译环境：
+
+```shell
+set RTT_EXEC_PATH=your_toolchains
+# 或者修改rtconfig.py 文件第22行，新增 os.environ['RTT_EXEC_PATH'] = r'your_toolchains'
+scons -j 6	
+```
+
+如果编译正确无误，会产生rtthread.elf、rtthread.bin文件。
+
+其中 rtthread.bin 需要烧写到设备中进行运行。
 
 ## 功能列表
 

@@ -16,12 +16,20 @@ def platform_parameters(parser):
                         help="The Kendryte RISC-V GNU Compiler Toolchain.")
     parser.add_argument("--ext_tools", type=str, default="./platforms/plugin_k210/k_tools",
                         help="NNcase excute file path. Convert tflite/onnx/caffe model to kmodel.")
-    parser.add_argument("--inference_type", type=str, default="uint8",
+    parser.add_argument("--inference_type", type=str, default="uint8", choices=["uint8", "float"],
                         help="inference type: e.g. float, uint8 default is uint8")
     parser.add_argument("--dataset", type=str, default="./platforms/plugin_k210/datasets/images",
                         help="calibration dataset, used in post quantization, only quantize used")
     parser.add_argument("--dataset_format", type=str, default="image",
                         help="The datset format: e.g. image, raw. Default is image, only quantize used")
+    parser.add_argument("--weights_quantize_threshold", type=float, default=64.000000,
+                        help="the threshold to control quantizing op or not according to it's weigths range")
+    parser.add_argument("--output_quantize_threshold", type=int, default=1024,
+                        help="the threshold to control quantizing op or not according to it's output size")
+    parser.add_argument("--no_quantized_binary", action="store_true",
+                        help="Disable quantized binary operator, nncase will always use float binary operator")
+    parser.add_argument("--dump_weights_range", action="store_true",
+                        help="Show conv2d weights range or not.")                    
     parser.add_argument("--rt_ai_example", type=str, default="./platforms/plugin_k210/docs",
                         help="Model & platform informations registered to RT-AK Lib, eg:stm32, k210.")
     parser.add_argument("--convert_report", type=str, default="./platforms/plugin_k210/convert_report.txt",

@@ -17,6 +17,7 @@ import os
 import sys
 import re
 import logging
+import platform
 import subprocess
 from pathlib import Path
 
@@ -33,17 +34,24 @@ class Plugin(object):
         self.model_path = opt.model
         self.platform = opt.platform
 
-        # plugin_k210 parser
-        self.embed_gcc = opt.embed_gcc
-        self.ext_tools = opt.ext_tools
+        # plugin_k210 parser part1: nncase parser
         self.inference_type = opt.inference_type
         self.dataset = opt.dataset
         self.dataset_format = opt.dataset_format
+        self.dump_weights_range = opt.dump_weights_range
+        self.weights_quantize_threshold = opt.weights_quantize_threshold
+        self.output_quantize_threshold = opt.output_quantize_threshold
+        self.no_quantized_binary = opt.no_quantized_binary
+
+        # plugin_k210 parser part2
+        self.embed_gcc = opt.embed_gcc
+        self.ext_tools = opt.ext_tools
         self.rt_ai_example = opt.rt_ai_example
         self.convert_report = opt.convert_report
         self.model_types = opt.model_types
         self.network = opt.network
         self.clear = opt.clear
+
 
         kmodel_name = self.is_support_model_type(self.model_types, self.model_path)
         self.kmodel_name = opt.model_name if opt.model_name else kmodel_name
@@ -83,7 +91,13 @@ class Plugin(object):
         assert Path(ncc_path).exists(), "No {} here".format(ncc_path)
 
         # set nncase env
-        os.environ["PATH"] = ncc_path
+        sysstr = platform.system()
+        if(sysstr =="Windows"):
+            os.environ["PATH"] += (";" + ncc_path)
+        elif(sysstr == "Linux"):
+            os.environ["PATH"] = ncc_path
+        else:
+            raise Exception("wrong system...")
 
         # validate
         ncc_info = self.excute_cmd("ncc --version")
@@ -101,12 +115,19 @@ class Plugin(object):
         model = Path(model)
         assert model.exists(), FileNotFoundError("No model found, pls check the model path!!!")
 
-        # kmodel path
+        # nncase: comvert model to kmodel
+        # base cmd
         base_cmd = f"ncc compile {model} {kmodel_path} -i {model.suffix[1:]} -t k210 " \
-                   f"--inference-type " \
-                   f"{inference_type}"
-        convert_cmd = base_cmd if inference_type == "float" \
-            else f"{base_cmd} --dataset {dataset} --dataset-format {dataset_format}"
+                   f"--inference-type {inference_type}"
+        # add --dump-weights-range
+        base_cmd = f"{base_cmd} --dump-weights-range " if self.dump_weights_range else base_cmd
+ 
+        if not self.no_quantized_binary and inference_type == "uint8":  # quantization
+            convert_cmd = f"{base_cmd} --dataset {dataset} --dataset-format {dataset_format} " \
+                          f"--weights-quantize-threshold {self.weights_quantize_threshold} " \
+                          f"--output-quantize-threshold {self.output_quantize_threshold}"
+        else:  # not quantization
+            convert_cmd = base_cmd
 
         cmd_out = self.excute_cmd(convert_cmd, is_realtime=True)
         report = "\n".join(cmd_out)
