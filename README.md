@@ -10,12 +10,16 @@
 
 ## 1. 简介
 
-*本项目是 `RT-AK` 主项目的一个子插件，支持以堪智 `K210` 芯片为目标硬件平台的 AI 开发，插件内部将会使用嘉楠堪智原厂的 `NNCase` 工具*
+**本项目是 `RT-AK` 主项目的一个子插件**
+
+本项目支持以堪智 `K210` 芯片为目标硬件平台的 AI 开发，插件内部将会使用嘉楠堪智原厂提供的 `NNCase` 工具
 
 - 本项目支持的模型类型有如下三种
 
   - `TFLite`
+  
   - `Caffe`
+  
   - `ONNX`
 
 - 本项目依赖的工具
@@ -170,40 +174,40 @@ scons -j 6
 <details>
 <summary>功能函数</summary> 
 <pre><code>
-### 3.1 Function1 - 判断模型是否支持
+### 7.1 Function1 - 判断模型是否支持
 <br>
 - 函数：`is_support_model_type(model_types, model)`
 - 功能：判断模型类型是否支持
 - input: (model_types, model)
 - output: model name
 <br>
-### 3.2 Function2 - 转换 kmodel
+### 7.2 Function2 - 转换 kmodel
 <br>
 - 函数：`convert_kmodel(model, project, dataset, kmodel_name, convert_report)`
 - 功能：将输入模型转成 `kmodel` 模型，保存路径：`project/applications/<kmodel_name>.kmodel` ，并将运行日志保存为：`./platforms/k210/convert_report.txt`
 - input: (model, project, dataset, kmodel_name, convert_report)
 - output: 模型转换的输出日志
 <br>
-### 3.3 Function3 -  转存16进制
+### 7.3 Function3 -  转存16进制
 <br>
 - 函数：`hex_read_model(self, project, model)`
 - 功能：将 `kmodel` 模型转存为十六进制，`project/applications/<kmodel_name>_kmodel.c` 
 - input: (project, model)
 <br>
-### 3.4 Function4 - 生成 rt_ai_model.h
+### 7.4 Function4 - 生成 rt_ai_model.h
 <br>
 - 函数：`rt_ai_model_gen(convert_report, project, model_name)`
 - 功能：根据 `./platforms/k210/convert_report.txt` 生成 `rt_ai_<model_name>_model.h` 文件
 - input: (convert_report, project, model_name)
 - output: `rt_ai_<model_name>_model.h` 文件内容
 <br>
-### 3.5 Function5 - 生成 rt_ai_model.c
+### 7.5 Function5 - 生成 rt_ai_model.c
 <br>
 - 函数：`load_rt_ai_example(rt_ai_example, project, old_name, new_name, platform)`
 - 功能：根据 `Documents/k210.c` 生成 `rt_ai_<model_name>_model.c` 文件
 - input: (Documents_path, project, default_name, kmodel_name, platform)
 <br>
-### 3.6 Function6 - RTT_EXEC_PATH 环境变量
+### 7.6 Function6 - RTT_EXEC_PATH 环境变量
 <br>
 - 函数：`set_gcc_path(project, embed_gcc)`
 - 功能：在 `project/rtthread.py` 文件的第十四行写入 `RTT_EXEC_PATH` 变量，这样就不用在 `env` 中手动指定路径了。
