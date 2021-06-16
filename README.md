@@ -1,12 +1,12 @@
 <center><h1>RT-AK 之 K210插件</h1></center>
 
-- [1. 简介](#1.-简介)
-- [2. 目录结构](#2.-目录结构)
-- [3. 命令行参数详细说明](#3.-命令行参数详细说明)
-- [4. 插件安装](#4.-插件安装)
-- [5. 命令行运行](#5.-命令行运行)
-- [6. 项目工程编译](#6.-项目工程编译)
-- [7. 插件内部工作流程](#7.-插件内部工作流程)
+- [1. 简介](#1-简介)
+- [2. 目录结构](#2-目录结构)
+- [3. 命令行参数详细说明](#3-命令行参数详细说明)
+- [4. 插件安装](#4-插件安装)
+- [5. 命令行运行](#5-命令行运行)
+- [6. 项目工程编译](#6-项目工程编译)
+- [7. 插件内部工作流程](#7-插件内部工作流程)
 
 ## 1. 简介
 
@@ -42,24 +42,24 @@
 │   ├── backend_k210_kpu.c
 │   ├── backend_k210_kpu.h
 │   └── readme.md
-├── datasets 				       		# 用于模型量化的数据集样例
+├── datasets 				       		          # 用于模型量化的数据集样例
 │   ├── mnist_datasets
 │   └── readme.md
-├── docs  								# RT-AK 之 K210 插件相关文档
+├── docs  								 		          # RT-AK 之 K210 插件相关文档
 │   ├── images
 │   ├── Q&A.md
 │   ├── RT-AK之K210插件快速上手.md
 │   └── version.md
 ├── generate_rt_ai_model_h.py
-├── k210.c							    # rt_ai_<model_name>_model.c 示例文件
-├── k_tools								# k210 原厂工具以及相关文档
+├── k210.c							     		        # rt_ai_<model_name>_model.c 示例文件
+├── k_tools								   		        # k210 原厂工具以及相关文档
 │   ├── kendryte_datasheet_20180919020633.pdf
 │   ├── kendryte_standalone_programming_guide_20190704110318_zh-Hans.pdf
 │   ├── ncc
-│   ├── ncc.exe							# k210 模型转成 kmodel 模型工具
+│   ├── ncc.exe							   		      # k210 模型转成 kmodel 模型工具
 │   └── readme.md
-├── plugin_k210_parser.py  			    # RT-AK 之 k210 插件运行参数
-├── plugin_k210.py						# RT-AK 之 k210 插件运行
+├── plugin_k210_parser.py  			        # RT-AK 之 k210 插件运行参数
+├── plugin_k210.py						          # RT-AK 之 k210 插件运行
 └── README.md
 ```
 
