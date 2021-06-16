@@ -1,26 +1,28 @@
-<center><h1>RT-AK 之 K210</h1></center>
+<center><h1>RT-AK 之 K210插件</h1></center>
 
-- [简介](# 简介)
-- [目录结构](# 目录结构)
-- [参数说明](# 参数说明)
-- [运行](# 运行)
-- [功能列表](# 功能列表)
+- [简介](#简介)
+- [目录结构](#目录结构)
+- [参数说明](#参数说明)
+- [运行](#运行)
+- [功能列表](#功能列表)
 
 ## 简介
 
-*本项目归属于 `RT-AK` 主项目中的一个子模块。*
+*本项目归属于 `RT-AK` 主项目中的一个子插件。*
 
-*使用堪智 `K210` 原 厂插件进行开发，嘉楠科技*
+*使用的是堪智 `K210` 原 厂插件 `NNCase` 进行开发，嘉楠科技*
 
-- k210 SDK |  Version: v0.5.6
+- `k210 SDK` |  `Version: V0.5.6`
 
-- 模型支持：TFLite、Caffe、ONNX
+- 模型支持：`TFLite`、`Caffe`、`ONNX`
 
-- 交叉编译工具链，下载地址： [xPack GNU RISC-V Embedded GCC](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/) | Version: v8.3.0-1.2
+- 交叉编译工具链，下载地址： [xPack GNU RISC-V Embedded GCC](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/tag/v8.3.0-1.2) | `Version: v8.3.0-1.2`
 
 - K-Flash 烧录工具，下载地址：[windows上的kflash图形界面烧录软件](https://github.com/kendryte/kendryte-flash-windows/releases)
 
   > PS: [linux下python脚本烧录](https://github.com/kendryte/kflash.py)
+
+- [RT-AK之K210插件快速上手](./docs/RT-AK之K210插件快速上手.md)
 
 ## 目录结构
 
@@ -32,7 +34,7 @@ k210
 │   ├── backend_k210_kpu.h
 │   └── readme.md
 ├── datasets
-│   └── images 						# 用于模型量化的数据集
+│   └── images 						# 用于模型量化的数据集样例
 ├── docs  							#k210 相关文档
 │   └── k210.c  					# rt_ai_<model_name>_model.c 示例文件
 ├── generate_rt_ai_model_h.py  		# 生成 rt_ai_<model_name>_model.h
@@ -47,7 +49,9 @@ k210
 
 ## 参数说明
 
-本插件使用的模型转换工具是 `NNCase`， 功能：将深度神经网络模型转成 `kmodel` 格式，[资料传送门](https://github.com/kendryte/nncase/blob/master/docs/USAGE_ZH.md)
+本插件使用的模型转换工具是堪智的原 厂插件 `NNCase`， 
+
+功能：完成神经网络模型格式转换，`kmodel` ，[资料传送门](https://github.com/kendryte/nncase/blob/master/docs/USAGE_ZH.md)
 
 > 详见 `plugin_k210_parser.py` 
 
@@ -104,19 +108,19 @@ $ python aitools.py --project=<your_project_path> --model=<your_model_path> --pl
 
 ## 项目工程编译
 
-**需要准备好交叉编译工具链** | [下载](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/tag/v8.3.0-1.2)
+**需要准备好交叉编译工具链： xpack-riscv-none-embed-gcc-8.3.0-1.2**
 
 设置编译环境：
 
 ```shell
 set RTT_EXEC_PATH=your_toolchains
-# 或者修改rtconfig.py 文件第22行，新增 os.environ['RTT_EXEC_PATH'] = r'your_toolchains'
+# 或者修改rtconfig.py 文件，在第22行新增 os.environ['RTT_EXEC_PATH'] = r'your_toolchains'
 scons -j 6	
 ```
 
-如果编译正确无误，会产生rtthread.elf、rtthread.bin文件。
+如果编译正确无误，会产生 `rtthread.elf`、`rtthread.bin`文件。
 
-其中 rtthread.bin 需要烧写到设备中进行运行。
+其中 `rtthread.bin` 需要烧写到设备中进行运行。
 
 ## 功能列表
 
