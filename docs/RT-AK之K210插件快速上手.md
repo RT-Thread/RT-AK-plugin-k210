@@ -55,15 +55,17 @@ $ git clone https://github.com/RT-Thread/RT-AK.git edge-ai
 
 请在 `edge-ai/RTAK/tools` 路径下运行该程序。
 
-![](https://gitee.com/lebhoryi/PicGoPictureBed/raw/master/img/20210616152341.png)
+![image-20210616200108220](https://gitee.com/lebhoryi/PicGoPictureBed/raw/master/img/20210616200114.png)
 
 ```shell
 # 基础运行命令
-python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=stm32 --clear
+python aitools.py --project=<your_project_path> --model=<your_model_path> --model_name=<your_model_name> --platform=k210 --clear
 
 # 示例
 $ D:\Project\edge-ai\RT-AK\rt_ai_tools>python aitools.py --project=D:\Project\K210_Demo\k210_rthread_bsp --model=.\Models\mnist.tflite --model_name=mnist --platform=k210 --embed_gcc=D:\Project\k210_third_tools\xpack-riscv-none-embed-gcc-8.3.0-1.2\bin --dataset=.\platforms\plugin_k210\datasets\mnist_datasets
 ```
+
+RT-AK 之 K210 插件示例 Demo 运行成功界面：
 
 ![](./images/run_rt_ak.png)
 
@@ -86,27 +88,20 @@ $ python aitools.py --project=<your_project_path> --model=<your_model_path> --pl
 $ python aitools.py --project="D:\Project\k210_val" --model="./Models/facelandmark.tflite" --model_name=facelandmark --platform=k210 --embed_gcc="D:\Project\k210_third_tools\xpack-riscv-none-embed-gcc-8.3.0-1.2\bin" --dataset="./platforms/plugin_k210/datasets/images"
 ```
 
-## 2.3 运行参数详细说明
+## 2.3 运行参数说明
 
-详见 `plugin_k210_parser.py` 
+详见[3. 命令行参数详细说明](../README.md)
 
-| Parameter                    | Description                                                  |
-| ---------------------------- | ------------------------------------------------------------ |
-| --embed_gcc                  | 交叉编译工具链路径，**非必须**。如果有，则会更改 `rt_config.py` 文件，如果无指定，则需要在编译的时候指定该工具链路径 |
-| --ext_tools                  | `NNCase` 路径，将模型转换为 `kmodel`，默认是 `./platforms/k210/k_tools` |
-| **--inference_type**         | 是否将模型量化为整形，如果是 `float`，不量化，将不能使用 `KPU` 加速，默认是 `uint8` |
-| --dataset                    | 模型量化过程中所需要用到的数据集，只需要在设置 `--inference-type` 为 `uint8` 时提供这个参数 |
-| --dataset_format             | 用于指定量化校准集的格式。默认是 `image`，如果是音频之类的数据集，则需要设置为 `raw` |
-| --weights_quantize_threshold | 控制是否量化 `conv2d` 和 `matmul weights` 的阈值。如果 `weights` 的范围大于这个阈值，`nncase` 将不会量化它 |
-| --output_quantize_threshold  | 控制是否量化 `conv2d` 和 `matmul weights` 的阈值。如果输出的元素个数小于这个阈值，`nncase` 将不会量化它。 |
-| --no_quantized_binary        | 禁用 `quantized binary` 算子，`nncase` 将总是使用 `float binary` 算子。 |
-| --dump_weights_range         | 是一个调试选项。当它打开时 `ncc` 会打印出 `conv2d weights` 的范围。 |
-| --rt_ai_example              | 存放`rt_ai_<model_name>_model.c` 示例文件，默认是 `./platforms/k210/docs` |
-| --convert_report             | 模型转换成 `kmodel` 的日志输出，默认是 `./platforms/k210/convert_report.txt` |
-| --model_types                | `RT-AK Tools` 所支持的模型类型，目前模型支持范围：`tflite、onnx、caffe` |
-| --network                    | 在 `Documents` 中的模板文件的模型名，默认是 `facelandmark`   |
-| --enable_rt_lib              | 在 `project/rtconfgi.h` 中打开宏定义 `RT_AI_USE_K210`，默认是 `RT_AI_USE_K210` |
-| **--clear**                  | 是否需要删除 `convert_report.txt` ，默认 `False`             |
+上述示例命令行的参数说明
+
+| Parameter    | Description                                                  |
+| ------------ | ------------------------------------------------------------ |
+| --project    | `OS+BSP` 项目工程文件夹，默认为空，**需要用户指定**          |
+| --model      | 神经网络模型文件路径，默认为 `./Models/keras_mnist.h5`       |
+| --model_name | 神经网络模型转换后新的模型名，默认是 `network`               |
+| --platform   | 指定目标平台信息，目前支持：`stm32`、`k210`，默认是 `example`，具体体可用的目标平台由 `platforms/xxx.json` 注册 |
+| --embed_gcc  | 交叉编译工具链路径，**非必须**。如果有，则会更改 `rt_config.py` 文件，如果无指定，则需要在编译的时候指定该工具链路径 |
+| --dataset    | 模型量化过程中所需要用到的数据集，只需要在设置 `--inference-type` 为 `uint8` 时提供这个参数 |
 
 # 3. 编译 & 下载
 

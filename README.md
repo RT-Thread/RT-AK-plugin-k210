@@ -1,12 +1,14 @@
 <center><h1>RT-AK 之 K210插件</h1></center>
 
-- [简介](#简介)
-- [目录结构](#目录结构)
-- [参数说明](#参数说明)
-- [运行](#运行)
-- [功能列表](#功能列表)
+- [1. 简介](#1.-简介)
+- [2. 目录结构](#2.-目录结构)
+- [3. 命令行参数详细说明](#3.-命令行参数详细说明)
+- [4. 插件安装](#4.-插件安装)
+- [5. 命令行运行](#5.-命令行运行)
+- [6. 项目工程编译](#6.-项目工程编译)
+- [7. 插件内部工作流程](#7.-插件内部工作流程)
 
-## 简介
+## 1. 简介
 
 *本项目是 `RT-AK` 主项目的一个子插件，支持以堪智 `K210` 芯片为目标硬件平台的 AI 开发，插件内部将会使用嘉楠堪智原厂的 `NNCase` 工具*
 
@@ -32,38 +34,48 @@
 - 本项目快速上手文档
   - [RT-AK之K210插件快速上手](./docs/RT-AK之K210插件快速上手.md)
 
-  
-
-## 目录结构
+## 2. 目录结构
 
 ```shell
-% tree k210                                                               ~/tmp
-k210
-├── backend_plugin_k210  			# 将模型信息注册到 RT-AK Lib 后端
+./
+├── backend_plugin_k210                 # 将模型信息注册到 RT-AK Lib 后端
 │   ├── backend_k210_kpu.c
 │   ├── backend_k210_kpu.h
 │   └── readme.md
-├── datasets
-│   └── images 						# 用于模型量化的数据集样例
-├── docs  							#k210 相关文档
-│   └── k210.c  					# rt_ai_<model_name>_model.c 示例文件
-├── generate_rt_ai_model_h.py  		# 生成 rt_ai_<model_name>_model.h
-├── k_tools  						# k210 所使用的相关工具
-│   └── ncc.exe  					# k210 模型转成 kmodel 模型工具
-├── plugin_k210_parser.py  			# k210 参数
-├── plugin_k210.py 					# k210 插件运行
+├── datasets 				       		# 用于模型量化的数据集样例
+│   ├── mnist_datasets
+│   └── readme.md
+├── docs  								# RT-AK 之 K210 插件相关文档
+│   ├── images
+│   ├── Q&A.md
+│   ├── RT-AK之K210插件快速上手.md
+│   └── version.md
+├── generate_rt_ai_model_h.py
+├── k210.c							    # rt_ai_<model_name>_model.c 示例文件
+├── k_tools								# k210 原厂工具以及相关文档
+│   ├── kendryte_datasheet_20180919020633.pdf
+│   ├── kendryte_standalone_programming_guide_20190704110318_zh-Hans.pdf
+│   ├── ncc
+│   ├── ncc.exe							# k210 模型转成 kmodel 模型工具
+│   └── readme.md
+├── plugin_k210_parser.py  			    # RT-AK 之 k210 插件运行参数
+├── plugin_k210.py						# RT-AK 之 k210 插件运行
 └── README.md
-
-5 directories, 9 files
 ```
 
-## 参数说明
+## 3. 命令行参数详细说明
 
-本插件使用的模型转换工具是堪智的原 厂插件 `NNCase`， 
+$$
+RT-AK 命令行的参数 = （RT-AK 基础参数 + K210 插件参数）
+$$
 
-功能：完成神经网络模型格式转换，`kmodel` ，
+- RT-AK 基础参数，[链接](https://github.com/RT-Thread/RT-AK/tree/main/RT-AK/rt_ai_tools#0x03-%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)
 
-> 详见 `plugin_k210_parser.py` 
+- 该部分是 RT-AK 之 K210 插件的参数说明，详见 `plugin_k210_parser.py` 
+
+其中需要注意的是加粗部分的两个参数，请注意看相关描述。
+
+详细的使用说明请阅读后续章节
 
 | Parameter                    | Description                                                  |
 | ---------------------------- | ------------------------------------------------------------ |
@@ -76,15 +88,30 @@ k210
 | --output_quantize_threshold  | 控制是否量化 `conv2d` 和 `matmul weights` 的阈值。如果输出的元素个数小于这个阈值，`nncase` 将不会量化它。 |
 | --no_quantized_binary        | 禁用 `quantized binary` 算子，`nncase` 将总是使用 `float binary` 算子。 |
 | --dump_weights_range         | 是一个调试选项。当它打开时 `ncc` 会打印出 `conv2d weights` 的范围。 |
-| --rt_ai_example              | 存放`rt_ai_<model_name>_model.c` 示例文件，默认是 `./platforms/k210/docs` |
 | --convert_report             | 模型转换成 `kmodel` 的日志输出，默认是 `./platforms/k210/convert_report.txt` |
 | --model_types                | `RT-AK Tools` 所支持的模型类型，目前模型支持范围：`tflite、onnx、caffe` |
 | --enable_rt_lib              | 在 `project/rtconfgi.h` 中打开宏定义 `RT_AI_USE_K210`，默认是 `RT_AI_USE_K210` |
 | **--clear**                  | 是否需要删除 `convert_report.txt` ，默认 `False`             |
 
-## 运行
+## 4. 插件安装
 
-> 目前耗时在 220s 左右，时间占用最长在 nncase 转换模型的过程中，耗时 200s 上下。
+该插件无需主动安装，
+
+只需要克隆主项目工程：[RT-AK](https://github.com/RT-Thread/RT-AK)
+
+进入到 `RT-AK/rt_ai_tools` 路径下，
+
+**仅需要**在执行 `python aitools.py --xxx` 的同时指定 `platform` 参数为 K210 即可，插件会自动下载。
+
+## 5. 命令行运行
+
+需要进入到 `RT-AK/rt_ai_tools` 路径下，执行下面中的某一条命令
+
+其中 `your_project_path` 是拥有 RT-Thread 系统的 BSP 路径，这里，我们提供了一份 BSP ，[下载地址](http://117.143.63.254:9012/www/RT-AK/sdk-bsp-k210.zip)
+
+上面提供的 BSP 中 K210 的 SDK 是 V0.5.6 版本。
+
+> https://github.com/RT-Thread/rt-thread/bsp/k210 下的 SDK 最高到 v0.5.7，但是其中的 v0.5.6 落后于我们提供的 BSP，请以我们提供的 BSP 为准，也欢迎各位同学到 Github 上提 issue 和 pr
 
 ```bash
 # 非量化，不使用 KPU 加速， --inference_type
@@ -103,8 +130,6 @@ $ python aitools.py --project=<your_project_path> --model=<your_model_path> --pl
 $ python aitools.py --project="D:\Project\k210_val" --model="./Models/facelandmark.tflite" --model_name=facelandmark --platform=k210 --embed_gcc="D:\Project\k210_third_tools\xpack-riscv-none-embed-gcc-8.3.0-1.2\bin" --dataset="./platforms/plugin_k210/datasets/images"
 ```
 
-![](https://gitee.com/lebhoryi/PicGoPictureBed/raw/master/img/20210223151447.png)
-
 其他：
 
 ```shell
@@ -115,7 +140,7 @@ $ python aitools.py --project=<your_project_path> --model=<your_model_path> --mo
 $ python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --clear
 ```
 
-## 项目工程编译
+## 6. 项目工程编译
 
 **需要准备好交叉编译工具链： xpack-riscv-none-embed-gcc-8.3.0-1.2**
 
@@ -131,7 +156,7 @@ scons -j 6
 
 其中 `rtthread.bin` 需要烧写到设备中进行运行。
 
-## 功能列表
+## 7. 插件内部工作流程
 
 - [x] 判断模型是否支持
 - [x] 模型转换成 `kmodel` 模型，保存在 `project/applications` 
@@ -140,44 +165,48 @@ scons -j 6
 - [x] 生成 `rt_ai_<model_name>_model.c` 文件，保存在 `project/applications` 
 - [x] 在 `project` 中写入 `RTT_EXEC_PATH` 环境变量
 - [x] 判断是否删除 `convert_report.txt`
-- [ ] ~~修改 `main.c`~~
+- [ ] ~~自动生成模型推理等应用代码~~
 
+<details>
+<summary>功能函数</summary> 
+<pre><code>
 ### 3.1 Function1 - 判断模型是否支持
-
+<br>
 - 函数：`is_support_model_type(model_types, model)`
 - 功能：判断模型类型是否支持
 - input: (model_types, model)
 - output: model name
-
+<br>
 ### 3.2 Function2 - 转换 kmodel
-
+<br>
 - 函数：`convert_kmodel(model, project, dataset, kmodel_name, convert_report)`
 - 功能：将输入模型转成 `kmodel` 模型，保存路径：`project/applications/<kmodel_name>.kmodel` ，并将运行日志保存为：`./platforms/k210/convert_report.txt`
 - input: (model, project, dataset, kmodel_name, convert_report)
 - output: 模型转换的输出日志
-
+<br>
 ### 3.3 Function3 -  转存16进制
-
+<br>
 - 函数：`hex_read_model(self, project, model)`
 - 功能：将 `kmodel` 模型转存为十六进制，`project/applications/<kmodel_name>_kmodel.c` 
 - input: (project, model)
-
+<br>
 ### 3.4 Function4 - 生成 rt_ai_model.h
-
+<br>
 - 函数：`rt_ai_model_gen(convert_report, project, model_name)`
 - 功能：根据 `./platforms/k210/convert_report.txt` 生成 `rt_ai_<model_name>_model.h` 文件
 - input: (convert_report, project, model_name)
 - output: `rt_ai_<model_name>_model.h` 文件内容
-
+<br>
 ### 3.5 Function5 - 生成 rt_ai_model.c
-
+<br>
 - 函数：`load_rt_ai_example(rt_ai_example, project, old_name, new_name, platform)`
 - 功能：根据 `Documents/k210.c` 生成 `rt_ai_<model_name>_model.c` 文件
 - input: (Documents_path, project, default_name, kmodel_name, platform)
-
+<br>
 ### 3.6 Function6 - RTT_EXEC_PATH 环境变量
-
+<br>
 - 函数：`set_gcc_path(project, embed_gcc)`
 - 功能：在 `project/rtthread.py` 文件的第十四行写入 `RTT_EXEC_PATH` 变量，这样就不用在 `env` 中手动指定路径了。
 - input: (project, embed_gcc)
-
+</code></pre>
+</details>
