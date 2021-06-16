@@ -7,4 +7,5 @@ k210 版本跟踪
 | V0.0.3 | 2021/06/01 |  embed_gcc 参数不是非必须，如果有，则将写入 rt_config.py 文件中，如果没有，则在编译的时候需要指定                                                            |
 | V0.0.4  | 2021/06/03 | 新增 linux 支持                                              |
 | V0.0.5 | 2021/06/03| 增加 `--weights-quantize-threshold`, `--output-quantize-threshold` and `--no-quantized-binary`，`--no_quantized_binary`, `--dump_weights_range`<br>`--dump_weights_range` 从可选择输入更改为指定输入，二选一 |
+| V0.0.6 | 2021/06/16 | 新增`RT-AK之K210插件快速上手.md` <br>修改根目录的 `readme.md`，新增文件夹下面的 `readme.md` |
 

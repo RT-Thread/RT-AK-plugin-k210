@@ -8,19 +8,31 @@
 
 ## 简介
 
-*本项目是 `RT-AK` 主项目中的一个子插件，支持以堪智 `K210` 芯片为目标硬件平台的 AI 开发，插件内部将会使用嘉楠堪智原厂的 `NNCase` 工具*
+*本项目是 `RT-AK` 主项目的一个子插件，支持以堪智 `K210` 芯片为目标硬件平台的 AI 开发，插件内部将会使用嘉楠堪智原厂的 `NNCase` 工具*
 
-- `k210 SDK` |  `Version: V0.5.6`
+- 本项目支持的模型类型有如下三种
 
-- 模型支持：`TFLite`、`Caffe`、`ONNX`
+  - `TFLite`
+  - `Caffe`
+  - `ONNX`
 
-- 交叉编译工具链，下载地址： [xPack GNU RISC-V Embedded GCC](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/tag/v8.3.0-1.2) | `Version: v8.3.0-1.2`
+- 本项目依赖的工具
 
-- K-Flash 烧录工具，下载地址：[windows上的kflash图形界面烧录软件](https://github.com/kendryte/kendryte-flash-windows/releases)
+  - 交叉编译工具链
 
-  > PS: [linux下python脚本烧录](https://github.com/kendryte/kflash.py)
+     [xPack GNU RISC-V Embedded GCC](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/tag/v8.3.0-1.2) | `Version: v8.3.0-1.2`
 
-- [RT-AK之K210插件快速上手](./docs/RT-AK之K210插件快速上手.md)
+  - 原厂工具
+    - NNCase 模型转换工具，[官方资料传送门](https://github.com/kendryte/nncase/blob/master/docs/USAGE_ZH.md)
+
+    - K-Flash 烧录工具，[下载地址](https://github.com/kendryte/kendryte-flash-windows/releases)
+
+      > PS: [linux下python脚本烧录](https://github.com/kendryte/kflash.py)
+
+- 本项目快速上手文档
+  - [RT-AK之K210插件快速上手](./docs/RT-AK之K210插件快速上手.md)
+
+  
 
 ## 目录结构
 
@@ -49,7 +61,7 @@ k210
 
 本插件使用的模型转换工具是堪智的原 厂插件 `NNCase`， 
 
-功能：完成神经网络模型格式转换，`kmodel` ，[资料传送门](https://github.com/kendryte/nncase/blob/master/docs/USAGE_ZH.md)
+功能：完成神经网络模型格式转换，`kmodel` ，
 
 > 详见 `plugin_k210_parser.py` 
 
@@ -67,7 +79,6 @@ k210
 | --rt_ai_example              | 存放`rt_ai_<model_name>_model.c` 示例文件，默认是 `./platforms/k210/docs` |
 | --convert_report             | 模型转换成 `kmodel` 的日志输出，默认是 `./platforms/k210/convert_report.txt` |
 | --model_types                | `RT-AK Tools` 所支持的模型类型，目前模型支持范围：`tflite、onnx、caffe` |
-| --network                    | 在 `Documents` 中的模板文件的模型名，默认是 `facelandmark`   |
 | --enable_rt_lib              | 在 `project/rtconfgi.h` 中打开宏定义 `RT_AI_USE_K210`，默认是 `RT_AI_USE_K210` |
 | **--clear**                  | 是否需要删除 `convert_report.txt` ，默认 `False`             |
 
