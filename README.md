@@ -1,222 +1,222 @@
 
 
-<center><h1>RT-AK Ö® K210²å¼ş</h1></center>
+<center><h1>RT-AK ä¹‹ K210æ’ä»¶</h1></center>
 
-- [1. ¼ò½é](#1-¼ò½é)
-- [2. Ä¿Â¼½á¹¹](#2-Ä¿Â¼½á¹¹)
-- [3. ÃüÁîĞĞ²ÎÊıÏêÏ¸ËµÃ÷](#3-ÃüÁîĞĞ²ÎÊıÏêÏ¸ËµÃ÷)
-- [4. ²å¼ş°²×°](#4-²å¼ş°²×°)
-- [5. ÃüÁîĞĞÔËĞĞ](#5-ÃüÁîĞĞÔËĞĞ)
-- [6. ÏîÄ¿¹¤³Ì±àÒë](#6-ÏîÄ¿¹¤³Ì±àÒë)
-- [7. ²å¼şÄÚ²¿¹¤×÷Á÷³Ì](#7-²å¼şÄÚ²¿¹¤×÷Á÷³Ì)
+- [1. ç®€ä»‹](#1-ç®€ä»‹)
+- [2. ç›®å½•ç»“æ„](#2-ç›®å½•ç»“æ„)
+- [3. å‘½ä»¤è¡Œå‚æ•°è¯¦ç»†è¯´æ˜](#3-å‘½ä»¤è¡Œå‚æ•°è¯¦ç»†è¯´æ˜)
+- [4. æ’ä»¶å®‰è£…](#4-æ’ä»¶å®‰è£…)
+- [5. å‘½ä»¤è¡Œè¿è¡Œ](#5-å‘½ä»¤è¡Œè¿è¡Œ)
+- [6. é¡¹ç›®å·¥ç¨‹ç¼–è¯‘](#6-é¡¹ç›®å·¥ç¨‹ç¼–è¯‘)
+- [7. æ’ä»¶å†…éƒ¨å·¥ä½œæµç¨‹](#7-æ’ä»¶å†…éƒ¨å·¥ä½œæµç¨‹)
 
-## 1. ¼ò½é
+## 1. ç®€ä»‹
 
-**±¾ÏîÄ¿ÊÇ `RT-AK` Ö÷ÏîÄ¿µÄÒ»¸ö×Ó²å¼ş**
+**æœ¬é¡¹ç›®æ˜¯ `RT-AK` ä¸»é¡¹ç›®çš„ä¸€ä¸ªå­æ’ä»¶**
 
-±¾ÏîÄ¿Ö§³ÖÒÔ¿°ÖÇ `K210` Ğ¾Æ¬ÎªÄ¿±êÓ²¼şÆ½Ì¨µÄ AI ¿ª·¢£¬²å¼şÄÚ²¿½«»áÊ¹ÓÃ¼Îéª¿°ÖÇÔ­³§Ìá¹©µÄ `NNCase` ¹¤¾ß
+æœ¬é¡¹ç›®æ”¯æŒä»¥å ªæ™º `K210` èŠ¯ç‰‡ä¸ºç›®æ ‡ç¡¬ä»¶å¹³å°çš„ AI å¼€å‘ï¼Œæ’ä»¶å†…éƒ¨å°†ä¼šä½¿ç”¨å˜‰æ¥ å ªæ™ºåŸå‚æä¾›çš„ `NNCase` å·¥å…·
 
-- ±¾ÏîÄ¿Ö§³ÖµÄÄ£ĞÍÀàĞÍÓĞÈçÏÂÈıÖÖ
+- æœ¬é¡¹ç›®æ”¯æŒçš„æ¨¡å‹ç±»å‹æœ‰å¦‚ä¸‹ä¸‰ç§
 
   - `TFLite`
   - `Caffe`
   - `ONNX`
   
-- Ö§³ÖµÄËã×Ó
+- æ”¯æŒçš„ç®—å­
 
   - [TFLite ops](./k_tools/tflite_ops.md)
   - [Caffe ops](./k_tools/caffe_ops.md)
   - [ONNX ops](./k_tools/onnx_ops.md)
 
-- ±¾ÏîÄ¿ÒÀÀµµÄ¹¤¾ß
+- æœ¬é¡¹ç›®ä¾èµ–çš„å·¥å…·
 
-  - ½»²æ±àÒë¹¤¾ßÁ´ (¶ÔÓ¦µÄÏµÍ³Ñ¡Ôñ¶ÔÓ¦µÄ°æ±¾£¬ÏÂÃæÒÔ Windows ÎªÀı)
+  - äº¤å‰ç¼–è¯‘å·¥å…·é“¾ (å¯¹åº”çš„ç³»ç»Ÿé€‰æ‹©å¯¹åº”çš„ç‰ˆæœ¬ï¼Œä¸‹é¢ä»¥ Windows ä¸ºä¾‹)
 
      [xpack-riscv-none-embed-gcc-8.3.0-1.2-win32-x64.zip](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/tag/v8.3.0-1.2) | `Version: v8.3.0-1.2`
 
-  - Ô­³§¹¤¾ß
-    - NNCase Ä£ĞÍ×ª»»¹¤¾ß£¬ÒÑ¾­ÌáÇ°ÏÂÔØºÃ£¬Î»ÓÚ `./k_tools`£¬ [¹Ù·½×ÊÁÏ´«ËÍÃÅ](https://github.com/kendryte/nncase/blob/master/docs/USAGE_ZH.md)
+  - åŸå‚å·¥å…·
+    - NNCase æ¨¡å‹è½¬æ¢å·¥å…·ï¼Œå·²ç»æå‰ä¸‹è½½å¥½ï¼Œä½äº `./k_tools`ï¼Œ [å®˜æ–¹èµ„æ–™ä¼ é€é—¨](https://github.com/kendryte/nncase/blob/master/docs/USAGE_ZH.md)
 
-    - K-Flash ÉÕÂ¼¹¤¾ß£¬[ÏÂÔØÇëÑ¡Ôñ K-Flash.zip ](https://github.com/kendryte/kendryte-flash-windows/releases)
+    - K-Flash çƒ§å½•å·¥å…·ï¼Œ[ä¸‹è½½è¯·é€‰æ‹© K-Flash.zip ](https://github.com/kendryte/kendryte-flash-windows/releases)
 
-      > PS: [linuxÏÂpython½Å±¾ÉÕÂ¼](https://github.com/kendryte/kflash.py)
+      > PS: [linuxä¸‹pythonè„šæœ¬çƒ§å½•](https://github.com/kendryte/kflash.py)
 
-- ±¾ÏîÄ¿¿ìËÙÉÏÊÖÎÄµµ
-  - [RT-AKÖ®K210²å¼ş¿ìËÙÉÏÊÖ](./docs/RT-AKÖ®K210²å¼ş¿ìËÙÉÏÊÖ.md)
+- æœ¬é¡¹ç›®å¿«é€Ÿä¸Šæ‰‹æ–‡æ¡£
+  - [RT-AKä¹‹K210æ’ä»¶å¿«é€Ÿä¸Šæ‰‹](./docs/RT-AKä¹‹K210æ’ä»¶å¿«é€Ÿä¸Šæ‰‹.md)
 
-## 2. Ä¿Â¼½á¹¹
+## 2. ç›®å½•ç»“æ„
 
 ```shell
 ./
-©À©¤©¤ backend_plugin_k210                 # ½«Ä£ĞÍĞÅÏ¢×¢²áµ½ RT-AK Lib ºó¶Ë
-©¦?? ©À©¤©¤ backend_k210_kpu.c
-©¦?? ©À©¤©¤ backend_k210_kpu.h
-©¦?? ©¸©¤©¤ readme.md
-©À©¤©¤ datasets                            # ÓÃÓÚÄ£ĞÍÁ¿»¯µÄÊı¾İ¼¯ÑùÀı
-©¦?? ©À©¤©¤ mnist_datasets
-©¦?? ©¸©¤©¤ readme.md
-©À©¤©¤ docs                                # RT-AK Ö® K210 ²å¼şÏà¹ØÎÄµµ
-©¦?? ©À©¤©¤ images
-©¦?? ©À©¤©¤ Q&A.md
-©¦?? ©À©¤©¤ RT-AKÖ®K210²å¼ş¿ìËÙÉÏÊÖ.md
-©¦?? ©¸©¤©¤ version.md
-©À©¤©¤ generate_rt_ai_model_h.py
-©À©¤©¤ k210.c                              # rt_ai_<model_name>_model.c Ê¾ÀıÎÄ¼ş
-©À©¤©¤ k_tools                             # k210 Ô­³§¹¤¾ßÒÔ¼°Ïà¹ØÎÄµµ
-©¦?? ©À©¤©¤ kendryte_datasheet_20180919020633.pdf
-©¦?? ©À©¤©¤ kendryte_standalone_programming_guide_20190704110318_zh-Hans.pdf
-©¦?? ©À©¤©¤ ncc
-©¦?? ©À©¤©¤ ncc.exe                         # k210 Ä£ĞÍ×ª³É kmodel Ä£ĞÍ¹¤¾ß
-©¦?? ©¸©¤©¤ readme.md
-©À©¤©¤ plugin_k210_parser.py               # RT-AK Ö® k210 ²å¼şÔËĞĞ²ÎÊı
-©À©¤©¤ plugin_k210.py                      # RT-AK Ö® k210 ²å¼şÔËĞĞ
-©¸©¤©¤ README.md
+â”œâ”€â”€ backend_plugin_k210                 # å°†æ¨¡å‹ä¿¡æ¯æ³¨å†Œåˆ° RT-AK Lib åç«¯
+â”‚   â”œâ”€â”€ backend_k210_kpu.c
+â”‚   â”œâ”€â”€ backend_k210_kpu.h
+â”‚   â””â”€â”€ readme.md
+â”œâ”€â”€ datasets                            # ç”¨äºæ¨¡å‹é‡åŒ–çš„æ•°æ®é›†æ ·ä¾‹
+â”‚   â”œâ”€â”€ mnist_datasets
+â”‚   â””â”€â”€ readme.md
+â”œâ”€â”€ docs                                # RT-AK ä¹‹ K210 æ’ä»¶ç›¸å…³æ–‡æ¡£
+â”‚   â”œâ”€â”€ images
+â”‚   â”œâ”€â”€ Q&A.md
+â”‚   â”œâ”€â”€ RT-AKä¹‹K210æ’ä»¶å¿«é€Ÿä¸Šæ‰‹.md
+â”‚   â””â”€â”€ version.md
+â”œâ”€â”€ generate_rt_ai_model_h.py
+â”œâ”€â”€ k210.c                              # rt_ai_<model_name>_model.c ç¤ºä¾‹æ–‡ä»¶
+â”œâ”€â”€ k_tools                             # k210 åŸå‚å·¥å…·ä»¥åŠç›¸å…³æ–‡æ¡£
+â”‚   â”œâ”€â”€ kendryte_datasheet_20180919020633.pdf
+â”‚   â”œâ”€â”€ kendryte_standalone_programming_guide_20190704110318_zh-Hans.pdf
+â”‚   â”œâ”€â”€ ncc
+â”‚   â”œâ”€â”€ ncc.exe                         # k210 æ¨¡å‹è½¬æˆ kmodel æ¨¡å‹å·¥å…·
+â”‚   â””â”€â”€ readme.md
+â”œâ”€â”€ plugin_k210_parser.py               # RT-AK ä¹‹ k210 æ’ä»¶è¿è¡Œå‚æ•°
+â”œâ”€â”€ plugin_k210.py                      # RT-AK ä¹‹ k210 æ’ä»¶è¿è¡Œ
+â””â”€â”€ README.md
 ```
 
-## 3. ÃüÁîĞĞ²ÎÊıÏêÏ¸ËµÃ÷
+## 3. å‘½ä»¤è¡Œå‚æ•°è¯¦ç»†è¯´æ˜
 
 $$
-RT-AK ÃüÁîĞĞµÄ²ÎÊı = £¨RT-AK »ù´¡²ÎÊı + K210 ²å¼ş²ÎÊı£©
+RT-AK å‘½ä»¤è¡Œçš„å‚æ•° = ï¼ˆRT-AK åŸºç¡€å‚æ•° + K210 æ’ä»¶å‚æ•°ï¼‰
 $$
 
-- RT-AK »ù´¡²ÎÊı£¬[Á´½Ó](https://github.com/RT-Thread/RT-AK/tree/main/RT-AK/rt_ai_tools#0x03-%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)
+- RT-AK åŸºç¡€å‚æ•°ï¼Œ[é“¾æ¥](https://github.com/RT-Thread/RT-AK/tree/main/RT-AK/rt_ai_tools#0x03-%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)
 
-- ¸Ã²¿·ÖÊÇ RT-AK Ö® K210 ²å¼şµÄ²ÎÊıËµÃ÷£¬Ïê¼û `plugin_k210_parser.py` 
+- è¯¥éƒ¨åˆ†æ˜¯ RT-AK ä¹‹ K210 æ’ä»¶çš„å‚æ•°è¯´æ˜ï¼Œè¯¦è§ `plugin_k210_parser.py` 
 
-ÆäÖĞĞèÒª×¢ÒâµÄÊÇ¼Ó´Ö²¿·ÖµÄÁ½¸ö²ÎÊı£¬Çë×¢Òâ¿´Ïà¹ØÃèÊö¡£
+å…¶ä¸­éœ€è¦æ³¨æ„çš„æ˜¯åŠ ç²—éƒ¨åˆ†çš„ä¸¤ä¸ªå‚æ•°ï¼Œè¯·æ³¨æ„çœ‹ç›¸å…³æè¿°ã€‚
 
-ÏêÏ¸µÄÊ¹ÓÃËµÃ÷ÇëÔÄ¶ÁºóĞøÕÂ½Ú
+è¯¦ç»†çš„ä½¿ç”¨è¯´æ˜è¯·é˜…è¯»åç»­ç« èŠ‚
 
 | Parameter                    | Description                                                  |
 | ---------------------------- | ------------------------------------------------------------ |
-| --embed_gcc                  | ½»²æ±àÒë¹¤¾ßÁ´Â·¾¶£¬**·Ç±ØĞë**¡£Èç¹ûÓĞ£¬Ôò»á¸ü¸Ä `rt_config.py` ÎÄ¼ş£¬Èç¹ûÎŞÖ¸¶¨£¬ÔòĞèÒªÔÚ±àÒëµÄÊ±ºòÖ¸¶¨¸Ã¹¤¾ßÁ´Â·¾¶ |
-| --ext_tools                  | `NNCase` Â·¾¶£¬½«Ä£ĞÍ×ª»»Îª `kmodel`£¬Ä¬ÈÏÊÇ `./platforms/k210/k_tools` |
-| **--inference_type**         | ÊÇ·ñ½«Ä£ĞÍÁ¿»¯ÎªÕûĞÎ£¬Èç¹ûÊÇ `float`£¬²»Á¿»¯£¬½«²»ÄÜÊ¹ÓÃ `KPU` ¼ÓËÙ£¬Ä¬ÈÏÊÇ `uint8` |
-| --dataset                    | Ä£ĞÍÁ¿»¯¹ı³ÌÖĞËùĞèÒªÓÃµ½µÄÊı¾İ¼¯£¬Ö»ĞèÒªÔÚÉèÖÃ `--inference-type` Îª `uint8` Ê±Ìá¹©Õâ¸ö²ÎÊı |
-| --dataset_format             | ÓÃÓÚÖ¸¶¨Á¿»¯Ğ£×¼¼¯µÄ¸ñÊ½¡£Ä¬ÈÏÊÇ `image`£¬Èç¹ûÊÇÒôÆµÖ®ÀàµÄÊı¾İ¼¯£¬ÔòĞèÒªÉèÖÃÎª `raw` |
-| --weights_quantize_threshold | ¿ØÖÆÊÇ·ñÁ¿»¯ `conv2d` ºÍ `matmul weights` µÄãĞÖµ¡£Èç¹û `weights` µÄ·¶Î§´óÓÚÕâ¸öãĞÖµ£¬`nncase` ½«²»»áÁ¿»¯Ëü |
-| --output_quantize_threshold  | ¿ØÖÆÊÇ·ñÁ¿»¯ `conv2d` ºÍ `matmul weights` µÄãĞÖµ¡£Èç¹ûÊä³öµÄÔªËØ¸öÊıĞ¡ÓÚÕâ¸öãĞÖµ£¬`nncase` ½«²»»áÁ¿»¯Ëü¡£ |
-| --no_quantized_binary        | ½ûÓÃ `quantized binary` Ëã×Ó£¬`nncase` ½«×ÜÊÇÊ¹ÓÃ `float binary` Ëã×Ó¡£ |
-| --dump_weights_range         | ÊÇÒ»¸öµ÷ÊÔÑ¡Ïî¡£µ±Ëü´ò¿ªÊ± `ncc` »á´òÓ¡³ö `conv2d weights` µÄ·¶Î§¡£ |
-| --convert_report             | Ä£ĞÍ×ª»»³É `kmodel` µÄÈÕÖ¾Êä³ö£¬Ä¬ÈÏÊÇ `./platforms/k210/convert_report.txt` |
-| --model_types                | `RT-AK Tools` ËùÖ§³ÖµÄÄ£ĞÍÀàĞÍ£¬Ä¿Ç°Ä£ĞÍÖ§³Ö·¶Î§£º`tflite¡¢onnx¡¢caffe` |
-| --enable_rt_lib              | ÔÚ `project/rtconfgi.h` ÖĞ´ò¿ªºê¶¨Òå `RT_AI_USE_K210`£¬Ä¬ÈÏÊÇ `RT_AI_USE_K210` |
-| **--clear**                  | ÊÇ·ñĞèÒªÉ¾³ı `convert_report.txt` £¬Ä¬ÈÏ `False`             |
+| --embed_gcc                  | äº¤å‰ç¼–è¯‘å·¥å…·é“¾è·¯å¾„ï¼Œ**éå¿…é¡»**ã€‚å¦‚æœæœ‰ï¼Œåˆ™ä¼šæ›´æ”¹ `rt_config.py` æ–‡ä»¶ï¼Œå¦‚æœæ— æŒ‡å®šï¼Œåˆ™éœ€è¦åœ¨ç¼–è¯‘çš„æ—¶å€™æŒ‡å®šè¯¥å·¥å…·é“¾è·¯å¾„ |
+| --ext_tools                  | `NNCase` è·¯å¾„ï¼Œå°†æ¨¡å‹è½¬æ¢ä¸º `kmodel`ï¼Œé»˜è®¤æ˜¯ `./platforms/k210/k_tools` |
+| **--inference_type**         | æ˜¯å¦å°†æ¨¡å‹é‡åŒ–ä¸ºæ•´å½¢ï¼Œå¦‚æœæ˜¯ `float`ï¼Œä¸é‡åŒ–ï¼Œå°†ä¸èƒ½ä½¿ç”¨ `KPU` åŠ é€Ÿï¼Œé»˜è®¤æ˜¯ `uint8` |
+| --dataset                    | æ¨¡å‹é‡åŒ–è¿‡ç¨‹ä¸­æ‰€éœ€è¦ç”¨åˆ°çš„æ•°æ®é›†ï¼Œåªéœ€è¦åœ¨è®¾ç½® `--inference-type` ä¸º `uint8` æ—¶æä¾›è¿™ä¸ªå‚æ•° |
+| --dataset_format             | ç”¨äºæŒ‡å®šé‡åŒ–æ ¡å‡†é›†çš„æ ¼å¼ã€‚é»˜è®¤æ˜¯ `image`ï¼Œå¦‚æœæ˜¯éŸ³é¢‘ä¹‹ç±»çš„æ•°æ®é›†ï¼Œåˆ™éœ€è¦è®¾ç½®ä¸º `raw` |
+| --weights_quantize_threshold | æ§åˆ¶æ˜¯å¦é‡åŒ– `conv2d` å’Œ `matmul weights` çš„é˜ˆå€¼ã€‚å¦‚æœ `weights` çš„èŒƒå›´å¤§äºè¿™ä¸ªé˜ˆå€¼ï¼Œ`nncase` å°†ä¸ä¼šé‡åŒ–å®ƒ |
+| --output_quantize_threshold  | æ§åˆ¶æ˜¯å¦é‡åŒ– `conv2d` å’Œ `matmul weights` çš„é˜ˆå€¼ã€‚å¦‚æœè¾“å‡ºçš„å…ƒç´ ä¸ªæ•°å°äºè¿™ä¸ªé˜ˆå€¼ï¼Œ`nncase` å°†ä¸ä¼šé‡åŒ–å®ƒã€‚ |
+| --no_quantized_binary        | ç¦ç”¨ `quantized binary` ç®—å­ï¼Œ`nncase` å°†æ€»æ˜¯ä½¿ç”¨ `float binary` ç®—å­ã€‚ |
+| --dump_weights_range         | æ˜¯ä¸€ä¸ªè°ƒè¯•é€‰é¡¹ã€‚å½“å®ƒæ‰“å¼€æ—¶ `ncc` ä¼šæ‰“å°å‡º `conv2d weights` çš„èŒƒå›´ã€‚ |
+| --convert_report             | æ¨¡å‹è½¬æ¢æˆ `kmodel` çš„æ—¥å¿—è¾“å‡ºï¼Œé»˜è®¤æ˜¯ `./platforms/k210/convert_report.txt` |
+| --model_types                | `RT-AK Tools` æ‰€æ”¯æŒçš„æ¨¡å‹ç±»å‹ï¼Œç›®å‰æ¨¡å‹æ”¯æŒèŒƒå›´ï¼š`tfliteã€onnxã€caffe` |
+| --enable_rt_lib              | åœ¨ `project/rtconfgi.h` ä¸­æ‰“å¼€å®å®šä¹‰ `RT_AI_USE_K210`ï¼Œé»˜è®¤æ˜¯ `RT_AI_USE_K210` |
+| **--clear**                  | æ˜¯å¦éœ€è¦åˆ é™¤ `convert_report.txt` ï¼Œé»˜è®¤ `False`             |
 
-## 4. ²å¼ş°²×°
+## 4. æ’ä»¶å®‰è£…
 
-¸Ã²å¼şÎŞĞèÖ÷¶¯°²×°£¬
+è¯¥æ’ä»¶æ— éœ€ä¸»åŠ¨å®‰è£…ï¼Œ
 
-Ö»ĞèÒª¿ËÂ¡Ö÷ÏîÄ¿¹¤³Ì£º[RT-AK](https://github.com/RT-Thread/RT-AK)
+åªéœ€è¦å…‹éš†ä¸»é¡¹ç›®å·¥ç¨‹ï¼š[RT-AK](https://github.com/RT-Thread/RT-AK)
 
-½øÈëµ½ `RT-AK/rt_ai_tools` Â·¾¶ÏÂ£¬
+è¿›å…¥åˆ° `RT-AK/rt_ai_tools` è·¯å¾„ä¸‹ï¼Œ
 
-**½öĞèÒª**ÔÚÖ´ĞĞ `python aitools.py --xxx` µÄÍ¬Ê±Ö¸¶¨ `platform` ²ÎÊıÎª K210 ¼´¿É£¬²å¼ş»á×Ô¶¯ÏÂÔØ¡£
+**ä»…éœ€è¦**åœ¨æ‰§è¡Œ `python aitools.py --xxx` çš„åŒæ—¶æŒ‡å®š `platform` å‚æ•°ä¸º K210 å³å¯ï¼Œæ’ä»¶ä¼šè‡ªåŠ¨ä¸‹è½½ã€‚
 
-## 5. ÃüÁîĞĞÔËĞĞ
+## 5. å‘½ä»¤è¡Œè¿è¡Œ
 
-ĞèÒª½øÈëµ½ `RT-AK/rt_ai_tools` Â·¾¶ÏÂ£¬Ö´ĞĞÏÂÃæÖĞµÄÄ³Ò»ÌõÃüÁî
+éœ€è¦è¿›å…¥åˆ° `RT-AK/rt_ai_tools` è·¯å¾„ä¸‹ï¼Œæ‰§è¡Œä¸‹é¢ä¸­çš„æŸä¸€æ¡å‘½ä»¤
 
-ÆäÖĞ `your_project_path` ÊÇÓµÓĞ `RT-Thread` ÏµÍ³µÄ `BSP` Â·¾¶£¬ÕâÀï£¬ÎÒÃÇÌá¹©ÁËÒ»·İ `BSP` £¬[ÏÂÔØµØÖ·](http://117.143.63.254:9012/www/RT-AK/sdk-bsp-k210.zip)
+å…¶ä¸­ `your_project_path` æ˜¯æ‹¥æœ‰ `RT-Thread` ç³»ç»Ÿçš„ `BSP` è·¯å¾„ï¼Œè¿™é‡Œï¼Œæˆ‘ä»¬æä¾›äº†ä¸€ä»½ `BSP` ï¼Œ[ä¸‹è½½åœ°å€](http://117.143.63.254:9012/www/RT-AK/sdk-bsp-k210.zip)
 
-ÉÏÃæÌá¹©µÄ `BSP` ÖĞ `K210` µÄ `SDK` ÊÇ `V0.5.6` °æ±¾¡£
+ä¸Šé¢æä¾›çš„ `BSP` ä¸­ `K210` çš„ `SDK` æ˜¯ `V0.5.6` ç‰ˆæœ¬ã€‚
 
-> https://github.com/RT-Thread/rt-thread/bsp/k210 ÏÂµÄ SDK ×î¸ßµ½ v0.5.7£¬µ«ÊÇÆäÖĞµÄ v0.5.6 ÂäºóÓÚÎÒÃÇÌá¹©µÄ BSP£¬ÇëÒÔÎÒÃÇÌá¹©µÄ BSP Îª×¼£¬Ò²»¶Ó­¸÷Î»Í¬Ñ§µ½ Github ÉÏÌá issue ºÍ pr
+> https://github.com/RT-Thread/rt-thread/bsp/k210 ä¸‹çš„ SDK æœ€é«˜åˆ° v0.5.7ï¼Œä½†æ˜¯å…¶ä¸­çš„ v0.5.6 è½åäºæˆ‘ä»¬æä¾›çš„ BSPï¼Œè¯·ä»¥æˆ‘ä»¬æä¾›çš„ BSP ä¸ºå‡†ï¼Œä¹Ÿæ¬¢è¿å„ä½åŒå­¦åˆ° Github ä¸Šæ issue å’Œ pr
 
 ```bash
-# ·ÇÁ¿»¯£¬²»Ê¹ÓÃ KPU ¼ÓËÙ£¬ --inference_type
+# éé‡åŒ–ï¼Œä¸ä½¿ç”¨ KPU åŠ é€Ÿï¼Œ --inference_type
 $ python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210  --inference_type=float
 
-# ·ÇÁ¿»¯£¬Ö¸¶¨½»²æ±àÒë¹¤¾ßÁ´Â·¾¶
+# éé‡åŒ–ï¼ŒæŒ‡å®šäº¤å‰ç¼–è¯‘å·¥å…·é“¾è·¯å¾„
 $ python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --inference_type=float
 
-# Á¿»¯Îª uint8£¬Ê¹ÓÃ KPU ¼ÓËÙ£¬Á¿»¯Êı¾İ¼¯ÎªÍ¼Æ¬
+# é‡åŒ–ä¸º uint8ï¼Œä½¿ç”¨ KPU åŠ é€Ÿï¼Œé‡åŒ–æ•°æ®é›†ä¸ºå›¾ç‰‡
 $ python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset>
 
-# Á¿»¯Îª uint8£¬Ê¹ÓÃ KPU ¼ÓËÙ£¬Á¿»¯Êı¾İ¼¯ÎªÒôÆµÖ®Àà·ÇÍ¼Æ¬£¬--dataset_format
+# é‡åŒ–ä¸º uint8ï¼Œä½¿ç”¨ KPU åŠ é€Ÿï¼Œé‡åŒ–æ•°æ®é›†ä¸ºéŸ³é¢‘ä¹‹ç±»éå›¾ç‰‡ï¼Œ--dataset_format
 $ python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --dataset_format=raw
 
-# Ê¾Àı(Á¿»¯Ä£ĞÍ£¬Í¼Æ¬Êı¾İ¼¯)
+# ç¤ºä¾‹(é‡åŒ–æ¨¡å‹ï¼Œå›¾ç‰‡æ•°æ®é›†)
 $ python aitools.py --project="D:\Project\k210_val" --model="./Models/facelandmark.tflite" --model_name=facelandmark --platform=k210 --embed_gcc="D:\Project\k210_third_tools\xpack-riscv-none-embed-gcc-8.3.0-1.2\bin" --dataset="./platforms/plugin_k210/datasets/images"
 ```
 
-ÆäËû£º
+å…¶ä»–ï¼š
 
 ```shell
-# Ö¸¶¨×ª»»µÄÄ£ĞÍÃû³Æ£¬--model_name Ä¬ÈÏÎª network
+# æŒ‡å®šè½¬æ¢çš„æ¨¡å‹åç§°ï¼Œ--model_name é»˜è®¤ä¸º network
 $ python aitools.py --project=<your_project_path> --model=<your_model_path> --model_name=<model_name> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --clear
 
-# ²»±£´æÄ£ĞÍ×ª»»ÈÕÖ¾£¬--clear
+# ä¸ä¿å­˜æ¨¡å‹è½¬æ¢æ—¥å¿—ï¼Œ--clear
 $ python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --clear
 ```
 
-## 6. ÏîÄ¿¹¤³Ì±àÒë
+## 6. é¡¹ç›®å·¥ç¨‹ç¼–è¯‘
 
-**ĞèÒª×¼±¸ºÃ½»²æ±àÒë¹¤¾ßÁ´£º xpack-riscv-none-embed-gcc-8.3.0-1.2**
+**éœ€è¦å‡†å¤‡å¥½äº¤å‰ç¼–è¯‘å·¥å…·é“¾ï¼š xpack-riscv-none-embed-gcc-8.3.0-1.2**
 
-ÉèÖÃ±àÒë»·¾³£º
+è®¾ç½®ç¼–è¯‘ç¯å¢ƒï¼š
 
 ```shell
 set RTT_EXEC_PATH=your_toolchains
-# »òÕßĞŞ¸Ärtconfig.py ÎÄ¼ş£¬ÔÚµÚ22ĞĞĞÂÔö os.environ['RTT_EXEC_PATH'] = r'your_toolchains'
+# æˆ–è€…ä¿®æ”¹rtconfig.py æ–‡ä»¶ï¼Œåœ¨ç¬¬22è¡Œæ–°å¢ os.environ['RTT_EXEC_PATH'] = r'your_toolchains'
 scons -j 6	
 ```
 
-Èç¹û±àÒëÕıÈ·ÎŞÎó£¬»á²úÉú `rtthread.elf`¡¢`rtthread.bin`ÎÄ¼ş¡£
+å¦‚æœç¼–è¯‘æ­£ç¡®æ— è¯¯ï¼Œä¼šäº§ç”Ÿ `rtthread.elf`ã€`rtthread.bin`æ–‡ä»¶ã€‚
 
-ÆäÖĞ `rtthread.bin` ĞèÒªÉÕĞ´µ½Éè±¸ÖĞ½øĞĞÔËĞĞ¡£
+å…¶ä¸­ `rtthread.bin` éœ€è¦çƒ§å†™åˆ°è®¾å¤‡ä¸­è¿›è¡Œè¿è¡Œã€‚
 
-## 7. ²å¼şÄÚ²¿¹¤×÷Á÷³Ì
+## 7. æ’ä»¶å†…éƒ¨å·¥ä½œæµç¨‹
 
-- [x] ÅĞ¶ÏÄ£ĞÍÊÇ·ñÖ§³Ö
-- [x] Ä£ĞÍ×ª»»³É `kmodel` Ä£ĞÍ£¬±£´æÔÚ `project/applications` 
-- [x] `kmodel` Ä£ĞÍ×ª´æÎªÊ®Áù½øÖÆ£¬±£´æÔÚ `project/applications` 
-- [x] Éú³É `rt_ai_<model_name>_model.h` ÎÄ¼ş£¬±£´æÔÚ `project/applications` 
-- [x] Éú³É `rt_ai_<model_name>_model.c` ÎÄ¼ş£¬±£´æÔÚ `project/applications` 
-- [x] ÔÚ `project` ÖĞĞ´Èë `RTT_EXEC_PATH` »·¾³±äÁ¿
-- [x] ÅĞ¶ÏÊÇ·ñÉ¾³ı `convert_report.txt`
-- [ ] ~~×Ô¶¯Éú³ÉÄ£ĞÍÍÆÀíµÈÓ¦ÓÃ´úÂë~~
+- [x] åˆ¤æ–­æ¨¡å‹æ˜¯å¦æ”¯æŒ
+- [x] æ¨¡å‹è½¬æ¢æˆ `kmodel` æ¨¡å‹ï¼Œä¿å­˜åœ¨ `project/applications` 
+- [x] `kmodel` æ¨¡å‹è½¬å­˜ä¸ºåå…­è¿›åˆ¶ï¼Œä¿å­˜åœ¨ `project/applications` 
+- [x] ç”Ÿæˆ `rt_ai_<model_name>_model.h` æ–‡ä»¶ï¼Œä¿å­˜åœ¨ `project/applications` 
+- [x] ç”Ÿæˆ `rt_ai_<model_name>_model.c` æ–‡ä»¶ï¼Œä¿å­˜åœ¨ `project/applications` 
+- [x] åœ¨ `project` ä¸­å†™å…¥ `RTT_EXEC_PATH` ç¯å¢ƒå˜é‡
+- [x] åˆ¤æ–­æ˜¯å¦åˆ é™¤ `convert_report.txt`
+- [ ] ~~è‡ªåŠ¨ç”Ÿæˆæ¨¡å‹æ¨ç†ç­‰åº”ç”¨ä»£ç ~~
 
 <details>
-<summary>¹¦ÄÜº¯Êı</summary> 
+<summary>åŠŸèƒ½å‡½æ•°</summary> 
 <pre><code>
-### 7.1 Function1 - ÅĞ¶ÏÄ£ĞÍÊÇ·ñÖ§³Ö
+### 7.1 Function1 - åˆ¤æ–­æ¨¡å‹æ˜¯å¦æ”¯æŒ
 <br>
-- º¯Êı£º`is_support_model_type(model_types, model)`
-- ¹¦ÄÜ£ºÅĞ¶ÏÄ£ĞÍÀàĞÍÊÇ·ñÖ§³Ö
+- å‡½æ•°ï¼š`is_support_model_type(model_types, model)`
+- åŠŸèƒ½ï¼šåˆ¤æ–­æ¨¡å‹ç±»å‹æ˜¯å¦æ”¯æŒ
 - input: (model_types, model)
 - output: model name
 <br>
-### 7.2 Function2 - ×ª»» kmodel
+### 7.2 Function2 - è½¬æ¢ kmodel
 <br>
-- º¯Êı£º`convert_kmodel(model, project, dataset, kmodel_name, convert_report)`
-- ¹¦ÄÜ£º½«ÊäÈëÄ£ĞÍ×ª³É `kmodel` Ä£ĞÍ£¬±£´æÂ·¾¶£º`project/applications/<kmodel_name>.kmodel` £¬²¢½«ÔËĞĞÈÕÖ¾±£´æÎª£º`./platforms/k210/convert_report.txt`
+- å‡½æ•°ï¼š`convert_kmodel(model, project, dataset, kmodel_name, convert_report)`
+- åŠŸèƒ½ï¼šå°†è¾“å…¥æ¨¡å‹è½¬æˆ `kmodel` æ¨¡å‹ï¼Œä¿å­˜è·¯å¾„ï¼š`project/applications/<kmodel_name>.kmodel` ï¼Œå¹¶å°†è¿è¡Œæ—¥å¿—ä¿å­˜ä¸ºï¼š`./platforms/k210/convert_report.txt`
 - input: (model, project, dataset, kmodel_name, convert_report)
-- output: Ä£ĞÍ×ª»»µÄÊä³öÈÕÖ¾
+- output: æ¨¡å‹è½¬æ¢çš„è¾“å‡ºæ—¥å¿—
 <br>
-### 7.3 Function3 -  ×ª´æ16½øÖÆ
+### 7.3 Function3 -  è½¬å­˜16è¿›åˆ¶
 <br>
-- º¯Êı£º`hex_read_model(self, project, model)`
-- ¹¦ÄÜ£º½« `kmodel` Ä£ĞÍ×ª´æÎªÊ®Áù½øÖÆ£¬`project/applications/<kmodel_name>_kmodel.c` 
+- å‡½æ•°ï¼š`hex_read_model(self, project, model)`
+- åŠŸèƒ½ï¼šå°† `kmodel` æ¨¡å‹è½¬å­˜ä¸ºåå…­è¿›åˆ¶ï¼Œ`project/applications/<kmodel_name>_kmodel.c` 
 - input: (project, model)
 <br>
-### 7.4 Function4 - Éú³É rt_ai_model.h
+### 7.4 Function4 - ç”Ÿæˆ rt_ai_model.h
 <br>
-- º¯Êı£º`rt_ai_model_gen(convert_report, project, model_name)`
-- ¹¦ÄÜ£º¸ù¾İ `./platforms/k210/convert_report.txt` Éú³É `rt_ai_<model_name>_model.h` ÎÄ¼ş
+- å‡½æ•°ï¼š`rt_ai_model_gen(convert_report, project, model_name)`
+- åŠŸèƒ½ï¼šæ ¹æ® `./platforms/k210/convert_report.txt` ç”Ÿæˆ `rt_ai_<model_name>_model.h` æ–‡ä»¶
 - input: (convert_report, project, model_name)
-- output: `rt_ai_<model_name>_model.h` ÎÄ¼şÄÚÈİ
+- output: `rt_ai_<model_name>_model.h` æ–‡ä»¶å†…å®¹
 <br>
-### 7.5 Function5 - Éú³É rt_ai_model.c
+### 7.5 Function5 - ç”Ÿæˆ rt_ai_model.c
 <br>
-- º¯Êı£º`load_rt_ai_example(rt_ai_example, project, old_name, new_name, platform)`
-- ¹¦ÄÜ£º¸ù¾İ `Documents/k210.c` Éú³É `rt_ai_<model_name>_model.c` ÎÄ¼ş
+- å‡½æ•°ï¼š`load_rt_ai_example(rt_ai_example, project, old_name, new_name, platform)`
+- åŠŸèƒ½ï¼šæ ¹æ® `Documents/k210.c` ç”Ÿæˆ `rt_ai_<model_name>_model.c` æ–‡ä»¶
 - input: (Documents_path, project, default_name, kmodel_name, platform)
 <br>
-### 7.6 Function6 - RTT_EXEC_PATH »·¾³±äÁ¿
+### 7.6 Function6 - RTT_EXEC_PATH ç¯å¢ƒå˜é‡
 <br>
-- º¯Êı£º`set_gcc_path(project, embed_gcc)`
-- ¹¦ÄÜ£ºÔÚ `project/rtthread.py` ÎÄ¼şµÄµÚÊ®ËÄĞĞĞ´Èë `RTT_EXEC_PATH` ±äÁ¿£¬ÕâÑù¾Í²»ÓÃÔÚ `env` ÖĞÊÖ¶¯Ö¸¶¨Â·¾¶ÁË¡£
+- å‡½æ•°ï¼š`set_gcc_path(project, embed_gcc)`
+- åŠŸèƒ½ï¼šåœ¨ `project/rtthread.py` æ–‡ä»¶çš„ç¬¬åå››è¡Œå†™å…¥ `RTT_EXEC_PATH` å˜é‡ï¼Œè¿™æ ·å°±ä¸ç”¨åœ¨ `env` ä¸­æ‰‹åŠ¨æŒ‡å®šè·¯å¾„äº†ã€‚
 - input: (project, embed_gcc)
 </code></pre>
 </details>
