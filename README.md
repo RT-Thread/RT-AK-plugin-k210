@@ -22,7 +22,7 @@
   - `Caffe`
   - `ONNX`
   
-- 支持的算子
+- 支持的算子（源于：[NNcase](https://github.com/kendryte/nncase/tree/master/docs)）
 
   - [TFLite ops](./k_tools/tflite_ops.md)
   - [Caffe ops](./k_tools/caffe_ops.md)
