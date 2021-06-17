@@ -187,7 +187,7 @@ for(int i = 0; i < 10 ; i++)
 
 示例数据在 `applications` 文件夹下，模型不用重新训练，只需更改第18行和第51行即可
 
-详细得 Mnist Demo 工程链接，包括训练和数据处理。 [Github](https://github.com/EdgeAIWithRTT/Project4-Mnist_RT-AK_K210)
+详细得 Mnist Demo 工程链接，包括训练和数据处理。 [Github](https://github.com/EdgeAIWithRTT/Project5-Mnist_RT-AK_K210)
 
 ## 4.3 结果显示
 
