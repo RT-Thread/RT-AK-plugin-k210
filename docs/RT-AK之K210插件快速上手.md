@@ -23,6 +23,10 @@
 
 - 这里，我们准备好了一份 `BSP`，[下载地址](http://117.143.63.254:9012/www/RT-AK/sdk-bsp-k210.zip)
 
+- 交叉编译工具链 (Windows)
+
+  [xpack-riscv-none-embed-gcc-8.3.0-1.2-win32-x64.zip](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/download/v8.3.0-1.2/xpack-riscv-none-embed-gcc-8.3.0-1.2-win32-x64.zip) | `Version: v8.3.0-1.2`
+
 ## 1.2 RT-AK 准备
 
 将 `RT-AK` 克隆到本地
@@ -43,9 +47,9 @@ $ git clone https://github.com/RT-Thread/RT-AK.git edge-ai
 
 1. `NNCase`：已经提前下载好，位于 `RT-AK/rt_ai_tools/platforms/plugin_k210/k_tools` 路径下
 
-   补充：[Github 下载地址](https://github.com/kendryte/nncase/releases)
+   > Github 下载地址补充：[Github 下载](https://github.com/kendryte/nncase/releases)
 
-2. `K-Flash` 烧录工具 [Github 下载地址](https://github.com/kendryte/kendryte-flash-windows/releases)
+2. `K-Flash` 烧录工具 [下载请选择 K-Flash.zip](https://github.com/kendryte/kendryte-flash-windows/releases/download/v0.4.1/K-Flash.zip)
 
 # 2. 执行步骤
 
@@ -62,14 +66,14 @@ $ git clone https://github.com/RT-Thread/RT-AK.git edge-ai
 在 `RT-AK` 运行的过程中
 
 1. 会自动拉取 `K210` 插件的仓库到 `RT-AK/rt_ai_tools/platforms` 路径下
-2. 在 `BSP` 基础上将会集成 AI 模型的，不包括模型推理等应用代码，应用代码请看下文
+2. 在 `BSP` 基础上将会集成 AI 模型的，不包括模型推理等应用代码，示例应用代码请看文末
 3. 在 `RT-AK/rt_ai_tools/platforms/plugin_k210` 路径下会生成 `<model_name>.kmodel` 和 `convert_report.txt` 两个文件
    - `<model_name>.kmodel` AI 模型转换之后的 `kmodel` 模型
    - `convert_report.txt` AI 模型转换过程的 `log` 日志
 
 ![image-20210617111819068](https://gitee.com/lebhoryi/PicGoPictureBed/raw/master/img/20210617112611.png)
 
-![image-20210617112301513](https://gitee.com/lebhoryi/PicGoPictureBed/raw/master/img/20210617112611.png)
+![image-20210617112301513](https://gitee.com/lebhoryi/PicGoPictureBed/raw/master/img/20210617112301.png)
 
 ```shell
 # 基础运行命令

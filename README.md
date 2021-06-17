@@ -17,21 +17,25 @@
 - 本项目支持的模型类型有如下三种
 
   - `TFLite`
-  
   - `Caffe`
-  
   - `ONNX`
+  
+- 支持的算子
+
+  - [TFLite ops](./k_tools/tflite_ops.md)
+  - [Caffe ops](./k_tools/caffe_ops.md)
+  - [ONNX ops](./k_tools/onnx_ops.md)
 
 - 本项目依赖的工具
 
-  - 交叉编译工具链
+  - 交叉编译工具链 (对应的系统选择对应的版本，下面以 Windows 为例)
 
-     [xPack GNU RISC-V Embedded GCC](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/tag/v8.3.0-1.2) | `Version: v8.3.0-1.2`
+     [xpack-riscv-none-embed-gcc-8.3.0-1.2-win32-x64.zip](https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/tag/v8.3.0-1.2) | `Version: v8.3.0-1.2`
 
   - 原厂工具
-    - NNCase 模型转换工具，[官方资料传送门](https://github.com/kendryte/nncase/blob/master/docs/USAGE_ZH.md)
+    - NNCase 模型转换工具，已经提前下载好，位于 `./k_tools`， [官方资料传送门](https://github.com/kendryte/nncase/blob/master/docs/USAGE_ZH.md)
 
-    - K-Flash 烧录工具，[下载地址](https://github.com/kendryte/kendryte-flash-windows/releases)
+    - K-Flash 烧录工具，[下载请选择 K-Flash.zip ](https://github.com/kendryte/kendryte-flash-windows/releases)
 
       > PS: [linux下python脚本烧录](https://github.com/kendryte/kflash.py)
 
@@ -111,9 +115,9 @@ $$
 
 需要进入到 `RT-AK/rt_ai_tools` 路径下，执行下面中的某一条命令
 
-其中 `your_project_path` 是拥有 RT-Thread 系统的 BSP 路径，这里，我们提供了一份 BSP ，[下载地址](http://117.143.63.254:9012/www/RT-AK/sdk-bsp-k210.zip)
+其中 `your_project_path` 是拥有 `RT-Thread` 系统的 `BSP` 路径，这里，我们提供了一份 `BSP` ，[下载地址](http://117.143.63.254:9012/www/RT-AK/sdk-bsp-k210.zip)
 
-上面提供的 BSP 中 K210 的 SDK 是 V0.5.6 版本。
+上面提供的 `BSP` 中 `K210` 的 `SDK` 是 `V0.5.6` 版本。
 
 > https://github.com/RT-Thread/rt-thread/bsp/k210 下的 SDK 最高到 v0.5.7，但是其中的 v0.5.6 落后于我们提供的 BSP，请以我们提供的 BSP 为准，也欢迎各位同学到 Github 上提 issue 和 pr
 
