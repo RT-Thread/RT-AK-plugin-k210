@@ -59,6 +59,18 @@ $ git clone https://github.com/RT-Thread/RT-AK.git edge-ai
 
 ![image-20210616200108220](https://gitee.com/lebhoryi/PicGoPictureBed/raw/master/img/20210616200114.png)
 
+在 `RT-AK` 运行的过程中
+
+1. 会自动拉取 `K210` 插件的仓库到 `RT-AK/rt_ai_tools/platforms` 路径下
+2. 在 `BSP` 基础上将会集成 AI 模型的，不包括模型推理等应用代码，应用代码请看下文
+3. 在 `RT-AK/rt_ai_tools/platforms/plugin_k210` 路径下会生成 `<model_name>.kmodel` 和 `convert_report.txt` 两个文件
+   - `<model_name>.kmodel` AI 模型转换之后的 `kmodel` 模型
+   - `convert_report.txt` AI 模型转换过程的 `log` 日志
+
+![image-20210617111819068](https://gitee.com/lebhoryi/PicGoPictureBed/raw/master/img/20210617112611.png)
+
+![image-20210617112301513](https://gitee.com/lebhoryi/PicGoPictureBed/raw/master/img/20210617112611.png)
+
 ```shell
 # 基础运行命令
 python aitools.py --project=<your_project_path> --model=<your_model_path> --model_name=<your_model_name> --platform=k210 --clear
