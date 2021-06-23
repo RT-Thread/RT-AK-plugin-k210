@@ -9,6 +9,6 @@ k210 版本跟踪
 | V0.0.5 | 2021/06/03| 增加 `--weights-quantize-threshold`, `--output-quantize-threshold` and `--no-quantized-binary`，`--no_quantized_binary`, `--dump_weights_range`<br>`--dump_weights_range` 从可选择输入更改为指定输入，二选一 |
 | V0.0.6 | 2021/06/16 | 新增`RT-AK之K210插件快速上手.md` <br>修改根目录的 `readme.md`，新增文件夹下面的 `readme.md` |
 | V0.0.7 | 2021/06/17 | 新增 K210 NNCase 算子支持说明 |
-|  |  |  |
+| V0.0.8 | 2021/06/23 | 1. 新增 input-type 参数；<br>2. 新增 kmodel 生成失败的异常处理 |
 |  |  |  |
 

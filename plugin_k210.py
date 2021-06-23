@@ -42,6 +42,7 @@ class Plugin(object):
         self.weights_quantize_threshold = opt.weights_quantize_threshold
         self.output_quantize_threshold = opt.output_quantize_threshold
         self.no_quantized_binary = opt.no_quantized_binary
+        self.input_type = opt.input_type if opt.input_type else self.inference_type
 
         # plugin_k210 parser part2
         self.embed_gcc = opt.embed_gcc
@@ -118,7 +119,7 @@ class Plugin(object):
         # nncase: comvert model to kmodel
         # base cmd
         base_cmd = f"ncc compile {model} {kmodel_path} -i {model.suffix[1:]} -t k210 " \
-                   f"--inference-type {inference_type}"
+                   f"--inference-type {inference_type} --input-type {self.input_type}"
         # add --dump-weights-range
         base_cmd = f"{base_cmd} --dump-weights-range " if self.dump_weights_range else base_cmd
  
@@ -134,6 +135,9 @@ class Plugin(object):
 
         with open(convert_report, "w+") as f:
             f.write(report)
+
+        if not kmodel_path.exists():
+            raise Exception("Model convert to kmodel failed!!!")
 
         logging.info("Convert model to kmodel successfully...")
 
