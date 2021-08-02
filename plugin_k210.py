@@ -42,6 +42,7 @@ class Plugin(object):
         self.weights_quantize_threshold = opt.weights_quantize_threshold
         self.output_quantize_threshold = opt.output_quantize_threshold
         self.no_quantized_binary = opt.no_quantized_binary
+        # To support the case of inference_type is uint8, but input type need to be float32.
         self.input_type = opt.input_type if opt.input_type else self.inference_type
 
         # plugin_k210 parser part2
