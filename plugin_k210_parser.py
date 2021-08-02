@@ -29,7 +29,9 @@ def platform_parameters(parser):
     parser.add_argument("--no_quantized_binary", action="store_true",
                         help="Disable quantized binary operator, nncase will always use float binary operator")
     parser.add_argument("--dump_weights_range", action="store_true",
-                        help="Show conv2d weights range or not.")                    
+                        help="Show conv2d weights range or not.")
+    parser.add_argument("--input-type", type=str, default="",
+                        help="input type: e.g. default, float, uint8, default means equal to inference type")
     parser.add_argument("--rt_ai_example", type=str, default="./platforms/plugin_k210",
                         help="Model & platform informations registered to RT-AK Lib, eg:stm32, k210.")
     parser.add_argument("--convert_report", type=str, default="./platforms/plugin_k210/convert_report.txt",
