@@ -33,7 +33,7 @@ def platform_parameters(parser):
     parser.add_argument("--input_type", type=str, default="",
                         help="input type: e.g. default, float, uint8, default means equal to inference type")
     parser.add_argument("--input_std", type=float, default=0.000000,
-                        help="input mean, default is 0.000000")
+                        help="input std, default is 0.000000")
     parser.add_argument("--input_mean", type=float, default=1.000000,
                         help="input mean, default is 1.000000")
     parser.add_argument("--rt_ai_example", type=str, default="./platforms/plugin_k210",
