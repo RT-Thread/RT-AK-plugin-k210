@@ -97,6 +97,7 @@ class Plugin(object):
         if(sysstr =="Windows"):
             os.environ["PATH"] += (";" + ncc_path)
         elif(sysstr == "Linux"):
+            self.excute_cmd("chmod +x platforms/plugin_k210/k_tools/ncc")
             os.environ["PATH"] = ncc_path
         else:
             raise Exception("wrong system...")
