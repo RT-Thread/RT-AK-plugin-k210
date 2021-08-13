@@ -1,0 +1,65 @@
+name: RT-AK with plugin-k210 CI
+
+on: [push, pull_request]
+
+jobs:
+  RT-AK-Github-Actions:
+    runs-on: ubuntu-18.04
+    env:
+      TEST_BSP_ROOT: ../AutoTestBsp
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v2.2.1
+      with:
+        python-version: 3.7
+      
+    - name: Install dependecies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 pytest scons
+    
+    - name: Lint with flake8
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+    - name: Install Riscv ToolChains
+      run: |
+        wget -q https://github.com/xpack-dev-tools/riscv-none-embed-gcc-xpack/releases/download/v8.3.0-1.2/xpack-riscv-none-embed-gcc-8.3.0-1.2-linux-x64.tar.gz
+        sudo tar zxf xpack-riscv-none-embed-gcc-8.3.0-1.2-linux-x64.tar.gz -C /opt
+        /opt/xpack-riscv-none-embed-gcc-8.3.0-1.2/bin/riscv-none-embed-gcc --version
+
+    - name: Prepare K210 BSP
+      run: |
+        git clone https://github.com/EdgeAIWithRTT/K210_BSP.git --depth 1 $TEST_BSP_ROOT
+
+    - name: Run RT-AK
+      run: |
+        git clone https://github.com/RT-Thread/RT-AK.git --depth 1
+        pushd RT-AK/RT-AK/rt_ai_tools
+        python aitools.py --project=../../../$TEST_BSP_ROOT --model_name=mnist --platform=k210 --dataset=../../../$TEST_BSP_ROOT/quantize_data --clear
+        popd
+    
+    - name: Build BSP
+      run: |
+        export RTT_EXEC_PATH=/opt/xpack-riscv-none-embed-gcc-8.3.0-1.2/bin
+        scons -j$(nproc) -C $TEST_BSP_ROOT
+        cp $TEST_BSP_ROOT/rtthread.bin .
+        echo "Compile done."
+    
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2.2.2
+      with: 
+        name:k210_sdk_with_mnist
+        path: ${{github.workspace}}/rtthread.bin
+        if-no-files-found: error
+
+    # app test
+
+    # test case (pytest)
