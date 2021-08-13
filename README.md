@@ -98,11 +98,21 @@ $$
 | --output_quantize_threshold  | 控制是否量化 `conv2d` 和 `matmul weights` 的阈值。如果输出的元素个数小于这个阈值，`nncase` 将不会量化它。 |
 | --no_quantized_binary        | 禁用 `quantized binary` 算子，`nncase` 将总是使用 `float binary` 算子。 |
 | --dump_weights_range         | 是一个调试选项。当它打开时 `ncc` 会打印出 `conv2d weights` 的范围。 |
-| --input-type                 | 用于设置推理时输入的数据类型。默认和 inference type 相同。如果 `--input-type` 是 `uint8`，推理时你需要提供 RGB888 uint8 张量。如果 `--input-type` 是 `float`，你则需要提供 RGB float 张量。 |
+| --input_std                  | 用于指定量化校准集的预处理方法。请看下方补充说明             |
+| --input_mean                 | 用于指定量化校准集的预处理方法。请看下方补充说明             |
+| --input_type                 | 用于设置推理时输入的数据类型。默认和 inference type 相同。如果 `--input-type` 是 `uint8`，推理时你需要提供 RGB888 uint8 张量。如果 `--input-type` 是 `float`，你则需要提供 RGB float 张量。 |
 | --convert_report             | 模型转换成 `kmodel` 的日志输出，默认是 `./platforms/k210/convert_report.txt` |
 | --model_types                | `RT-AK Tools` 所支持的模型类型，目前模型支持范围：`tflite、onnx、caffe` |
 | --enable_rt_lib              | 在 `project/rtconfgi.h` 中打开宏定义 `RT_AI_USE_K210`，默认是 `RT_AI_USE_K210` |
 | **--clear**                  | 是否需要删除 `convert_report.txt` ，默认 `False`             |
+
+- `--input-std` 和 `--input-mean` 用于指定量化校准集的预处理方法。如上所述 ncc 会将你的图片转换为值域是 [0,1] 布局是 `NCHW` 的张量，之后 ncc 会使用 `y = (x - mean) / std` 公式对数据进行归一化。这里有一张参数的参考表。
+
+| 输入值域     | --input-std | --input-mean |
+| ------------ | ----------- | ------------ |
+| [0,1] (默认) | 1           | 0            |
+| [-1,1]       | 0.5         | 0.5          |
+| [0,255]      | 0.0039216   | 0            |
 
 ## 4. 插件安装
 

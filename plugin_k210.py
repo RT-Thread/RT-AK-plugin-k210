@@ -44,6 +44,8 @@ class Plugin(object):
         self.no_quantized_binary = opt.no_quantized_binary
         # To support the case of inference_type is uint8, but input type need to be float32.
         self.input_type = opt.input_type if opt.input_type else self.inference_type
+        self.input_std = opt.input_std  # input mean, default is 0.00000
+        self.input_mean = opt.input_mean  # input std, default is 1.00000
 
         # plugin_k210 parser part2
         self.embed_gcc = opt.embed_gcc
@@ -53,7 +55,6 @@ class Plugin(object):
         self.model_types = opt.model_types
         self.network = opt.network
         self.clear = opt.clear
-
 
         kmodel_name = self.is_support_model_type(self.model_types, self.model_path)
         self.kmodel_name = opt.model_name if opt.model_name else kmodel_name
@@ -67,7 +68,6 @@ class Plugin(object):
 
         logging.info(f"The model is {model.name}")
         return model.stem
-
 
     def excute_cmd(self, cmd, is_realtime=False):
         """ Returnning string after the command is executed """
@@ -87,7 +87,6 @@ class Plugin(object):
             screenData.stdout.close()
         return result
 
-
     def set_env(self, ncc_path):
         """ set ncc.exe path """
         assert Path(ncc_path).exists(), "No {} here".format(ncc_path)
@@ -97,6 +96,7 @@ class Plugin(object):
         if(sysstr =="Windows"):
             os.environ["PATH"] += (";" + ncc_path)
         elif(sysstr == "Linux"):
+            self.excute_cmd("chmod +x platforms/plugin_k210/k_tools/ncc")
             os.environ["PATH"] = ncc_path
         else:
             raise Exception("wrong system...")
@@ -109,7 +109,6 @@ class Plugin(object):
         logging.info(f"ncc {ncc_version_info}...")
 
         return ncc_info
-
 
     def convert_kmodel(self, model, kmodel_path, inference_type, dataset, dataset_format,
                        convert_report):
@@ -127,7 +126,8 @@ class Plugin(object):
         if not self.no_quantized_binary and inference_type == "uint8":  # quantization
             convert_cmd = f"{base_cmd} --dataset {dataset} --dataset-format {dataset_format} " \
                           f"--weights-quantize-threshold {self.weights_quantize_threshold} " \
-                          f"--output-quantize-threshold {self.output_quantize_threshold}"
+                          f"--output-quantize-threshold {self.output_quantize_threshold} " \
+                          f"--input-std {self.input_std} --input-mean {self.input_mean}"
         else:  # not quantization
             convert_cmd = base_cmd
 
@@ -141,7 +141,6 @@ class Plugin(object):
             raise Exception("Model convert to kmodel failed!!!")
 
         logging.info("Convert model to kmodel successfully...")
-
 
     def hex_read_model(self, kmodel_path, project, model):
         """ save model with hex """
@@ -178,7 +177,6 @@ class Plugin(object):
 
         return result
 
-
     def update_network_name(self, info_file, new_example_file, default_name, model_name):
         """ replace old_name by new_name """
         # load file
@@ -199,7 +197,6 @@ class Plugin(object):
 
         return new_example_file
 
-
     def load_rt_ai_example(self, rt_ai_example, project, old_name, new_name, platform):
         """ load rt_ai_<model_name>_model.c from Documents"""
         rt_ai_example = Path(rt_ai_example)
@@ -215,7 +212,6 @@ class Plugin(object):
         self.update_network_name(k210_c_file, example_file, old_name, new_name)
 
         logging.info("Generate rt_ai_facelandmark_model.c successfully...")
-
 
     def set_gcc_path(self, project, embed_gcc):
         """ set GNU Compiler Toolchain """
@@ -244,7 +240,6 @@ class Plugin(object):
             fw.write("".join(lines))
 
         logging.info("Set GNU Compiler Toolchain successfully...")
-
 
     def run_plugin(self):
         # 1. set nncase env
