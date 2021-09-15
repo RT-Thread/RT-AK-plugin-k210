@@ -2,7 +2,7 @@
 
 <center><h1>The Plugin of RT-AK Platform: K210</h1></center> 
 
-- [1. Introduction](#1-Introduction)
+- [1. Introduction](#1.Introduction)
 - [2. Structure of the Plugin K210](#2.Structure_of_the_Plugin_K210)
 - [3. Parameter Explanation of the Plugin K210](#3.Parameter_Explanation_of_the_Plugin_K210)
 - [4. Installation for the Plugin K210](#4.Installation_for_the_Plugin_K210)
