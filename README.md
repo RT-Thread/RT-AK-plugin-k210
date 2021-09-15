@@ -1,4 +1,4 @@
-
+Other Language: [English](README_EN.md)
 
 <center><h1>RT-AK 之 K210插件</h1></center>
 
@@ -11,6 +11,8 @@
 - [7. 插件内部工作流程](#7-插件内部工作流程)
 
 ## 1. 简介
+
+![License](https://camo.githubusercontent.com/2a2157c971b7ae1deb8eb095799440551c33dcf61ea3d965d86b496a5a65df55/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c6963656e73652d417061636865253230322e302d626c75652e737667) [![img](https://camo.githubusercontent.com/12f51a23f724d8f12da5ad99e1f188e0e9c1db1d52d283134d9ad16384ca987c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f506c7567696e2d4b3231302d627269676874677265656e)](https://github.com/RT-Thread/RT-AK-plugin-k210)
 
 **本项目是 `RT-AK` 主项目的一个子插件**
 
