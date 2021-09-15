@@ -3,12 +3,12 @@
 <center><h1>The Plugin of RT-AK Platform: K210</h1></center> 
 
 - [1. Introduction](#1. Introduction)
-- [2. Structure of the Plugin K210](#2. Structure of the Plugin K210)
-- [3. Parameter Explanation of the Plugin K210](#3. Parameter Explanation of the Plugin K210)
-- [4. Installation for the Plugin K210](#4. Installation for the Plugin K210)
-- [5. Instruction for the Plugin K210 Command Line](#5. Instruction for the Plugin K210 Command Line)
-- [6. Compilation for the Embed Application Project](#6. Compilation for the Embed Application Project)
-- [7. Work flow on the K210 Platform](#7. Work flow on the K210 Platform)
+- [2. Structure of the Plugin K210](#2.Structure_of_the_Plugin_K210)
+- [3. Parameter Explanation of the Plugin K210](#3.Parameter_Explanation_of_the_Plugin_K210)
+- [4. Installation for the Plugin K210](#4.Installation_for_the_Plugin_K210)
+- [5. Instruction for the Plugin K210 Command Line](#5.Instruction_for_the_Plugin_K210_Command_Line)
+- [6. Compilation for the Embed Application Project](#6.Compilation_for_the_Embed_Application_Project)
+- [7. Work flow on the K210 Platform](#7.Work_flow_on_the_K210_Platform)
 
 ## 1. Introduction
 
@@ -46,7 +46,7 @@ This project uses the Kendryte K210 as the target hardware for AI application de
 - Quick start for the K210 of RT-AK platform
   - [Introduction of the quick start](./docs/Quick_start_with_RT-AK_K210.md)
 
-## 2. Structure of the Plugin K210 
+## 2.Structure_of_the_Plugin_K210 
 
 ```shell
 ./
@@ -75,7 +75,7 @@ This project uses the Kendryte K210 as the target hardware for AI application de
 └── README.md
 ```
 
-## 3. Parameter Explanation of the Plugin K210
+## 3.Parameter_Explanation_of_the_Plugin_K210
 
 $$
 RT-AK Input parameters = （RT-AK basic parameters + K210 plugin parameters）
@@ -99,13 +99,13 @@ $$
 | --input-type                 | Input type. Default is float or uint8, which is equal to inference type |
 | **--clear**                  | Delete `convert_report.txt` ，Default is `False`             |
 
-## 4. Installation for the Plugin K210
+## 4.Installation_for_the_Plugin_K210
 
 - It is not necessary to install the Plug-in K210 manually, but you need to clone the [`RT-AK`](https://github.com/RT-Thread/RT-AK) platform 
 
 - Under the `RT-AK/rt_ai_tools`, it is only need to execute `python aitools.py --xxx` and make sure that `platform=K210`, then the plug-in will be downloaded automatically
 
-## 5. Instruction for the Plugin K210 Command Line
+## 5.Instruction_for_the_Plugin_K210_Command_Line
 
 - Entering the `RT-AK/rt_ai_tools`, and typing the command as below
 -  `your_project_path` is the `BSP` path of the `RT-Thread RTOS`. We provide a [`BSP`](http://117.143.63.254:9012/www/RT-AK/sdk-bsp-k210.zip), the `SDK` of the `k210` is `V0.5.6`
@@ -137,7 +137,7 @@ $ python aitools.py --project=<your_project_path> --model=<your_model_path> --mo
 $ python aitools.py --project=<your_project_path> --model=<your_model_path> --platform=k210 --embed_gcc=<your_RISCV-GNU-Compiler_path> --dataset=<your_val_dataset> --clear
 ```
 
-## 6. Compilation for the Embed Application Project
+## 6.Compilation_for_the_Embed_Application_Project
 
 **Please prepare the cross compilation tool chain: xpack-riscv-none-embed-gcc-8.3.0-1.2**
 
@@ -151,7 +151,7 @@ scons -j 6
 
 If it is compiled successfully,  `rtthread.elf` and `rtthread.bin` will be generated,  `rtthread.bin` can be downloaded into the k210 hardware
 
-## 7. Work flow on the K210 Platform
+## 7.Work_flow_on_the_K210_Platform
 
 - [x] Checking the validation of AI model 
 - [x] AI model is transformed to the `kmodel` and saved at `project/applications` 
