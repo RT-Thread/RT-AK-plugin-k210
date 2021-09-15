@@ -1,3 +1,5 @@
+Other Language: [English](README_EN.md)
+
 K210 原厂工具 NNCase 在执行模型转换并量化过程中得量化数据集示例。
 
 本次示例得数据集为 MNIST 数据集，

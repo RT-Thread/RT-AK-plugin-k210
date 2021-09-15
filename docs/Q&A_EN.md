@@ -1,22 +1,18 @@
-Other Language: [English](Q&A_EN.md)
+中文: [Chinese](Q&A)
 
-## Q1 交叉编译工具链问题
+## Q1 Questions about the cross compilation tool chain
 
-问题：Please check Toolchains PATH setting.
-
-解决：
-
-设置编译环境：
+A：Please check the tool-chains PATH setting, such as
 
 ```shell
 set RTT_EXEC_PATH=your_toolchains
-# 或者修改rtconfig.py 文件，在第22行新增 os.environ['RTT_EXEC_PATH'] = r'your_toolchains'
+os.environ['RTT_EXEC_PATH'] = r'your_toolchains'
 scons -j 6  
 ```
 
-## Q2 编译报错 - sleep等函数定义冲突
+## Q2 Compilation problems - conflicts of the function definitions about `sleep`
 
-问题：
+A:
 
 ```shell
 > scons -j6

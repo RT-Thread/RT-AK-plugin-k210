@@ -1,4 +1,8 @@
-<center><h1>RT-AK 之 K210插件快速上手</h1></center>
+Other Language: [English](Quick_start_with_RT-AK_K210_EN.md)
+
+<center><h1>RT-AK 之 K210插件快速上手</h1></center
+
+
 
 [TOC]
 
