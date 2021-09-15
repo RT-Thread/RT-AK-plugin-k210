@@ -2,7 +2,7 @@
 
 <center><h1>The Plugin of RT-AK Platform: K210</h1></center> 
 
-- [1. Introduction](#1. Introduction)
+- [1. Introduction](#1.Introduction)
 - [2. Structure of the Plugin K210](#2.Structure_of_the_Plugin_K210)
 - [3. Parameter Explanation of the Plugin K210](#3.Parameter_Explanation_of_the_Plugin_K210)
 - [4. Installation for the Plugin K210](#4.Installation_for_the_Plugin_K210)
@@ -10,7 +10,7 @@
 - [6. Compilation for the Embed Application Project](#6.Compilation_for_the_Embed_Application_Project)
 - [7. Work flow on the K210 Platform](#7.Work_flow_on_the_K210_Platform)
 
-## 1. Introduction
+## 1.Introduction
 
 [![License](https://camo.githubusercontent.com/2a2157c971b7ae1deb8eb095799440551c33dcf61ea3d965d86b496a5a65df55/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c6963656e73652d417061636865253230322e302d626c75652e737667)](https://github.com/pinxue/RT-AK/blob/main/LICENSE) [![img](https://camo.githubusercontent.com/12f51a23f724d8f12da5ad99e1f188e0e9c1db1d52d283134d9ad16384ca987c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f506c7567696e2d4b3231302d627269676874677265656e)](https://github.com/RT-Thread/RT-AK-plugin-k210)
 
