@@ -3,12 +3,12 @@
 <center><h1>The Plugin of RT-AK Platform: K210</h1></center> 
 
 - [1. Introduction](#1-Introduction)
-- [2. Structure of the Plugin K210](#2-Structure_of_the_Plugin_K210)
-- [3. Parameter Explanation of the Plugin K210](#3-Parameter_Explanation_of_the_Plugin_K210)
-- [4. Installation for the Plugin K210](#4-Installation_for_the_Plugin_K210)
-- [5. Instruction for the Plugin K210 Command Line](#5-Instruction_for_the_Plugin_K210_Command_Line)
-- [6. Compilation for the Embed Application Project](#6-Compilation_for_the_Embed_Application_Project)
-- [7. Work flow on the K210 Platform](#7-Work_flow_on_the_K210_Platform)
+- [2. Structure of the Plugin K210](#2.Structure_of_the_Plugin_K210)
+- [3. Parameter Explanation of the Plugin K210](#3.Parameter_Explanation_of_the_Plugin_K210)
+- [4. Installation for the Plugin K210](#4.Installation_for_the_Plugin_K210)
+- [5. Instruction for the Plugin K210 Command Line](#5.Instruction_for_the_Plugin_K210_Command_Line)
+- [6. Compilation for the Embed Application Project](#6.Compilation_for_the_Embed_Application_Project)
+- [7. Work flow on the K210 Platform](#7.Work_flow_on_the_K210_Platform)
 
 ## 1.Introduction
 
