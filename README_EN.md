@@ -44,7 +44,7 @@ This project uses the Kendryte K210 as the target hardware for AI application de
       > PS: [K-Flash for linux](https://github.com/kendryte/kflash.py)
 
 - Quick start for the K210 of RT-AK platform
-  - [Introduction of the quick start](./docs/Quick_start_with_RT-AK_K210.md)
+  - [Introduction of the quick start](./docs/Quick_start_with_RT-AK_K210_EN.md)
 
 ## 2.Structure_of_the_Plugin_K210 
 
